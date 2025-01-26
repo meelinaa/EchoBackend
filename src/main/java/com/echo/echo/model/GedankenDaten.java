@@ -2,9 +2,12 @@ package com.echo.echo.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -24,5 +27,7 @@ public class GedankenDaten {
     public String gedanken;
 
     @ManyToOne
-    public Benutzer benutzer;
+    @JsonIgnore
+    @JoinColumn(name = "benutzer_id") 
+    private Benutzer benutzer;
 }

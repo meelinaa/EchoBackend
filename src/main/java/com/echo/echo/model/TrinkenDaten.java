@@ -2,9 +2,12 @@ package com.echo.echo.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +25,7 @@ public class TrinkenDaten {
     public Double liter;
 
     @ManyToOne
-    public Benutzer benutzer;
+    @JsonIgnore
+    @JoinColumn(name = "benutzer_id") 
+    private Benutzer benutzer;
 }
