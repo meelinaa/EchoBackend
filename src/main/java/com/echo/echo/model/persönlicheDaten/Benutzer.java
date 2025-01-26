@@ -1,6 +1,14 @@
-package com.echo.echo.model;
+package com.echo.echo.model.persönlicheDaten;
 
 import java.util.List;
+
+import com.echo.echo.model.körperlicheDaten.SchlafDaten;
+import com.echo.echo.model.körperlicheDaten.SchritteDaten;
+import com.echo.echo.model.körperlicheDaten.SportDaten;
+import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
+import com.echo.echo.model.mentaleDaten.GedankenDaten;
+import com.echo.echo.model.mentaleDaten.GemütDaten;
+import com.echo.echo.model.mentaleDaten.TräumeDaten;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

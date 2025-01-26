@@ -1,14 +1,14 @@
-package com.echo.echo.model;
+package com.echo.echo.model.körperlicheDaten;
 
 import java.time.LocalDateTime;
 
+import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-public class GedankenDaten {
+@AllArgsConstructor
+public class SchritteDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public LocalDateTime datum;
-    @Lob
-    public String gedanken;
+    public Integer schritte;
+    public Double meter;
 
     @ManyToOne
     @JsonIgnore

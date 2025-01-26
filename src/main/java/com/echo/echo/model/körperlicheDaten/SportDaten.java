@@ -1,8 +1,9 @@
-package com.echo.echo.model;
+package com.echo.echo.model.körperlicheDaten;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;

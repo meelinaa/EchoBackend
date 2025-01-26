@@ -1,6 +1,6 @@
-package com.echo.echo.model;
+package com.echo.echo.model.persönlicheDaten;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,13 +17,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchritteDaten {
+public class AllgemeineDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
-    public Integer schritte;
-    public Double meter;
+    public Double größe;
+    public Double gewicht;
+    public List<String> krankheiten;
+    public Integer alter;
+    public String geschlecht;
+    public Double bmi;
 
     @ManyToOne
     @JsonIgnore

@@ -1,8 +1,9 @@
-package com.echo.echo.model;
+package com.echo.echo.model.körperlicheDaten;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalTime;
 
+import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -16,16 +17,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-public class GemütDaten {
+@AllArgsConstructor
+public class SchlafDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
-    public Integer gemütszustand;
-    public List<String> beschreibung;
-    public List<String> grund;
+    public LocalDateTime datum;   
+    public LocalTime schlafenszeit;
+    public Integer schlafBewertung;
 
     @ManyToOne
     @JsonIgnore
