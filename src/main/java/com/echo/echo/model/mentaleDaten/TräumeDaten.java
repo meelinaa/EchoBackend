@@ -1,6 +1,6 @@
 package com.echo.echo.model.mentaleDaten;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +23,7 @@ public class TräumeDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
+    public LocalDate datum;
     public Integer bewertung;
     @Lob
     public String traum;

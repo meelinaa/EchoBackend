@@ -23,7 +23,6 @@ public class AllgemeineDaten {
     public Integer id;
     public Double größe;
     public Double gewicht;
-    public List<String> krankheiten;
     public Integer alter;
     public String geschlecht;
     public Double bmi;

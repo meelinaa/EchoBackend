@@ -1,5 +1,6 @@
 package com.echo.echo.model.mentaleDaten;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
@@ -23,7 +24,7 @@ public class GedankenDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
+    public LocalDate datum;
     @Lob
     public String gedanken;
 

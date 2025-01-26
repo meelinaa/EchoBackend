@@ -1,5 +1,6 @@
 package com.echo.echo.model.mentaleDaten;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class GemütDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
+    public LocalDate datum;
     public Integer gemütszustand;
     public List<String> beschreibung;
     public List<String> grund;
