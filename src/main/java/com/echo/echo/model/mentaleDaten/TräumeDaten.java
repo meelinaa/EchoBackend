@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TräumeDaten {
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public LocalDate datum;

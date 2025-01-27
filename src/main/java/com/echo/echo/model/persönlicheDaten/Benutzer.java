@@ -1,5 +1,6 @@
 package com.echo.echo.model.persönlicheDaten;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
@@ -15,6 +16,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,8 +31,8 @@ public class Benutzer {
     public Integer id;
     public String name;
 
-    @OneToMany(mappedBy = "allgemeineDaten", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AllgemeineDaten> allgemein; 
+    @OneToOne(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private AllgemeineDaten allgemein; 
 
     @OneToMany(mappedBy = "träumeDaten", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TräumeDaten> träume; 
@@ -51,6 +53,27 @@ public class Benutzer {
     private List<TrinkenDaten> trinken; 
 
     @OneToMany(mappedBy = "gemütDaten", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GemütDaten> genmüt; 
+    private List<GemütDaten> gemüt;
+
+
+
+    public TräumeDaten getTräume(LocalDate datum) {
+        for (TräumeDaten traum : träume) { 
+            if (traum.getDatum().equals(datum)) {
+                return traum; 
+            }
+        }
+        return null; 
+    }
+
+    public GemütDaten getGemüt(LocalDate datum) {
+        for (GemütDaten gemüt : gemüt) { 
+            if (gemüt.getDatum().equals(datum)) {
+                return gemüt; 
+            }
+        }
+        return null; 
+    }
+    
 
 }

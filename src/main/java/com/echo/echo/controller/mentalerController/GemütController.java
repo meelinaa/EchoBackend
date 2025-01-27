@@ -25,15 +25,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @NoArgsConstructor
 public class GemütController {
     private GemütService gemütService;
+    private Integer benutzerId = 1;
 
     @GetMapping("/{datum}")
-    public ResponseEntity<GemütDaten> getMethodName(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(gemütService.getGemüt(datum));
+    public ResponseEntity<GemütDaten> getGemüt(@PathVariable LocalDate datum) {
+        return ResponseEntity.ok(gemütService.getGemüt(datum, benutzerId));
     }
 
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putGemüt(@RequestBody GemütDaten daten) {
-        gemütService.putGemüt(daten);        
+        gemütService.putGemüt(daten, benutzerId);        
         return ResponseEntity.ok().build();
     }
     

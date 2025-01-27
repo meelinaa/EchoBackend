@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 
 @RestController
@@ -24,16 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AllgemeinController {
 
     private AllgemeinerService allgemeinerService;
-    private Integer id = 1;
+    private Integer benutzerId = 1;
 
     @GetMapping("/alles")
-    public ResponseEntity<AllgemeineDaten> getAlleAllgemeinenDaten() {
-        return ResponseEntity.ok(allgemeinerService.getAlleAllgemeinenDaten(id));
+    public ResponseEntity<AllgemeineDaten> getAllgemeinenDaten() {
+        return ResponseEntity.ok(allgemeinerService.getAllgemeinenDaten(benutzerId));
     }
     
     @PutMapping("/alles")
     public ResponseEntity<Void> setAlleAllgemeinenDaten(@RequestBody AllgemeineDaten daten) {
-        allgemeinerService.setAlleAllgemeinenDaten(id, daten);
+        allgemeinerService.setAlleAllgemeinenDaten(benutzerId, daten);
         return ResponseEntity.ok().build();
     }
 

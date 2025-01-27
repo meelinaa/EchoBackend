@@ -1,6 +1,6 @@
 package com.echo.echo.model.körperlicheDaten;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
@@ -23,7 +23,7 @@ public class SchlafDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;   
+    public LocalDate datum;   
     public LocalTime schlafenszeit;
     public Integer schlafBewertung;
 

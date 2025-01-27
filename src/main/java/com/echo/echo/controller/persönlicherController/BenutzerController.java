@@ -32,7 +32,7 @@ public class BenutzerController {
 
     @GetMapping("/alles")
     public ResponseEntity<Benutzer> getAlleBenutzerInfos() {
-        return ResponseEntity.ok(benutzerService.getAlleBenutzerInfos());
+        return null;
     }
 
     // Für die Übesicht Seiten

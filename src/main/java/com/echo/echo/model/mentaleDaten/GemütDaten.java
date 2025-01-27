@@ -1,7 +1,6 @@
 package com.echo.echo.model.mentaleDaten;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;

@@ -1,6 +1,7 @@
 package com.echo.echo.service.persönlicherService;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
 import com.echo.echo.model.körperlicheDaten.SchritteDaten;
@@ -11,12 +12,21 @@ import com.echo.echo.model.mentaleDaten.GemütDaten;
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
 import com.echo.echo.model.persönlicheDaten.AllgemeineDaten;
 import com.echo.echo.model.persönlicheDaten.Benutzer;
+import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class BenutzerService {
 
-    public Benutzer getAlleBenutzerInfos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAlleBenutzerInfos'");
+    private BenutzerRepository benutzerRepository;
+
+    Integer id = 1;
+
+    public Optional<Benutzer> getAlleBenutzerInfos() {
+        return benutzerRepository.findById(id);
     }
 
     public List<AllgemeineDaten> getAlleAllgemeinenDaten() {

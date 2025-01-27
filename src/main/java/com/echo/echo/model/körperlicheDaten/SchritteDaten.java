@@ -1,6 +1,6 @@
 package com.echo.echo.model.körperlicheDaten;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +22,7 @@ public class SchritteDaten {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
+    public LocalDate datum;
     public Integer schritte;
     public Double meter;
 
