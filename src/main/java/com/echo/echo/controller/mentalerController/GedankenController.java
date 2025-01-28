@@ -30,13 +30,27 @@ public class GedankenController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<GedankenDaten> getGedanken(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(gedankenService.getGedanken(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(gedankenService.getGedanken(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> putGedanken(@RequestBody GedankenDaten gedankenDaten) {
-        gedankenService.putGedanken(gedankenDaten, benutzerId);        
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> putGedanken(@RequestBody GedankenDaten daten) {
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            gedankenService.putGedanken(daten, benutzerId);        
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
 }

@@ -29,13 +29,27 @@ public class TrinkenController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(trinkenService.getTrinken(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(trinkenService.getTrinken(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putTrinken(@RequestBody TrinkenDaten daten) {
-        trinkenService.putTrinken(daten, benutzerId);
         
-        return ResponseEntity.ok().build();
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            trinkenService.putTrinken(daten, benutzerId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

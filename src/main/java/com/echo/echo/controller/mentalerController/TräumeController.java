@@ -28,15 +28,28 @@ public class TräumeController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<TräumeDaten> getAlleTraumInfos(@PathVariable LocalDate datum) {
-        System.out.println("TRÄUME Controller !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        return ResponseEntity.ok(träumeService.getTraum(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(träumeService.getTraum(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putTraum(@RequestBody TräumeDaten daten) {
-        träumeService.putTraum(daten, benutzerId);
-        return ResponseEntity.ok().build();
+        
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            träumeService.putTraum(daten, benutzerId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
 }

@@ -30,12 +30,27 @@ public class SportController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<SportDaten> getSport(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(sportService.getSport(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(sportService.getSport(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSport(@RequestBody SportDaten daten) {
-        sportService.putSport(daten, benutzerId);        
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            sportService.putSport(daten, benutzerId);        
         return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        
     }
 }

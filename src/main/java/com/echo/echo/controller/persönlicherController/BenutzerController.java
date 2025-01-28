@@ -32,32 +32,61 @@ public class BenutzerController {
 
     @GetMapping("/allgemein")
     public ResponseEntity<AllgemeineDaten> getAlleAllgemeinenDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/träume")
     public ResponseEntity<List<TräumeDaten>> getAlleTräumeDaten() {
         return ResponseEntity.ok(benutzerService.getAlleTräumeDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/schlaf")
     public ResponseEntity<List<SchlafDaten>> getAlleSchlafDaten() {
         return ResponseEntity.ok(benutzerService.getAlleSchlafDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/schritte")
     public ResponseEntity<List<SchritteDaten>> getAlleSchritteDaten() {
         return ResponseEntity.ok(benutzerService.getAlleSchritteDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/gedanken")
     public ResponseEntity<List<GedankenDaten>> getAlleGedankenDaten() {
         return ResponseEntity.ok(benutzerService.getAlleGedankenDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/sport")
     public ResponseEntity<List<SportDaten>> getAlleSportDaten() {
         return ResponseEntity.ok(benutzerService.getAlleSportDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/trinken")

@@ -27,13 +27,28 @@ public class GemütController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<GemütDaten> getGemüt(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(gemütService.getGemüt(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(gemütService.getGemüt(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putGemüt(@RequestBody GemütDaten daten) {
-        gemütService.putGemüt(daten, benutzerId);        
-        return ResponseEntity.ok().build();
+        
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            gemütService.putGemüt(daten, benutzerId);        
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
 }

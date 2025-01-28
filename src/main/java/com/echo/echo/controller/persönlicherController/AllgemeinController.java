@@ -25,14 +25,24 @@ public class AllgemeinController {
 
     @GetMapping("/alles")
     public ResponseEntity<AllgemeineDaten> getAllgemeinenDaten() {
-        System.out.println("AllgemeinController aufgerufen !!!!!!!!!!!!!!");
-        return ResponseEntity.ok(allgemeinerService.getAllgemeinenDaten(benutzerId));
+        try {
+            return ResponseEntity.ok(allgemeinerService.getAllgemeinenDaten(benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }        
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> setAlleAllgemeinenDaten(@RequestBody AllgemeineDaten daten) {
-        allgemeinerService.setAlleAllgemeinenDaten(benutzerId, daten);
-        return ResponseEntity.ok().build();
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            allgemeinerService.setAlleAllgemeinenDaten(benutzerId, daten);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }
