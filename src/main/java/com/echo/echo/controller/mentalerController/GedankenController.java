@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echo.echo.model.mentaleDaten.GedankenDaten;
 import com.echo.echo.service.mentalerService.GedankenService;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -21,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/gedanken")
-@AllArgsConstructor
-@NoArgsConstructor
 public class GedankenController {
 
     private GedankenService gedankenService;
     private Integer benutzerId = 1;
+
+    public GedankenController(GedankenService gedankenService){
+        this.gedankenService = gedankenService;
+    }
 
     @GetMapping("/{datum}")
     public ResponseEntity<GedankenDaten> getGedanken(@PathVariable LocalDate datum) {

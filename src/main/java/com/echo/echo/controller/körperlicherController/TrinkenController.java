@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
 import com.echo.echo.service.körperlicherService.TrinkenService;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 import org.springframework.http.ResponseEntity;
@@ -21,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/trinken")
-@AllArgsConstructor
-@NoArgsConstructor
 public class TrinkenController {
 
     private TrinkenService trinkenService;
-    private Integer benutzerId;
+    private Integer benutzerId = 1;
+
+    public TrinkenController(TrinkenService trinkenService){
+        this.trinkenService = trinkenService;
+    }
 
     @GetMapping("/{datum}")
     public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable LocalDate datum) {

@@ -18,7 +18,6 @@ public class GedankenService {
         this.benutzerRepository = benutzerRepository;
         this.gedankenRepository = gedankenRepository;
     }
-    
 
     public GedankenDaten getGedanken(LocalDate datum, Integer benutzerId) {
         return gedankenRepository.getByDatumUndBenutzer(datum, benutzerId);

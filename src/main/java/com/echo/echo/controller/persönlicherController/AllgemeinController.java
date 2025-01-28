@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echo.echo.model.persönlicheDaten.AllgemeineDaten;
 import com.echo.echo.service.persönlicherService.AllgemeinerService;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;

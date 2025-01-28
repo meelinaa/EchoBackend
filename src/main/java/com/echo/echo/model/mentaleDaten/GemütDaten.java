@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -31,7 +32,7 @@ public class GemütDaten {
     public List<String> grund;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "benutzer_id") 
     private Benutzer benutzer;
 }

@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echo.echo.model.körperlicheDaten.SchritteDaten;
 import com.echo.echo.service.körperlicherService.SchritteService;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 import org.springframework.http.ResponseEntity;
@@ -21,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/schritte")
-@AllArgsConstructor
-@NoArgsConstructor
 public class SchritteController {
 
     private SchritteService schritteService;
-    private Integer benutzerId;
+    private Integer benutzerId = 1;
+
+    public SchritteController(SchritteService schritteService){
+        this.schritteService = schritteService;
+    }
 
     @GetMapping("/{datum}")
     public ResponseEntity<SchritteDaten> getSchritte(@PathVariable LocalDate datum) {

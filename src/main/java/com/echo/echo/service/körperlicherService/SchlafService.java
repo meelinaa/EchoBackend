@@ -21,6 +21,7 @@ public class SchlafService {
     }
 
     public SchlafDaten getSchlaf(LocalDate datum, Integer benutzerId) {
+        System.out.println("SCHLAF Service !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
 
     }

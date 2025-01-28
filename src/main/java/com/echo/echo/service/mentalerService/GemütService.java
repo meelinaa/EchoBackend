@@ -9,8 +9,6 @@ import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.repository.mentalerRepository.GemütRepository;
 import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 
-
-
 @Service
 public class GemütService {
     

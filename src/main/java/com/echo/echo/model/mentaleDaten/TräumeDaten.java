@@ -3,6 +3,7 @@ package com.echo.echo.model.mentaleDaten;
 import java.time.LocalDate;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -10,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,11 +26,11 @@ public class TräumeDaten {
     public Integer id;
     public LocalDate datum;
     public Integer bewertung;
-    @Lob
     public String traum;
 
     @ManyToOne
     @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "benutzer_id") 
     private Benutzer benutzer;
 }

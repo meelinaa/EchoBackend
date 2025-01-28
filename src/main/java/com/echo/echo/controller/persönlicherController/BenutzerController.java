@@ -14,9 +14,6 @@ import com.echo.echo.model.persönlicheDaten.AllgemeineDaten;
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.service.persönlicherService.BenutzerService;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -26,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/benutzer")
-@RequiredArgsConstructor
 public class BenutzerController {
     
     private BenutzerService benutzerService;
@@ -37,7 +33,8 @@ public class BenutzerController {
 
     @GetMapping("/alles")
     public ResponseEntity<Benutzer> getAlleBenutzerInfos() {
-        return null;
+        System.out.println("BENUTZER CONTroller !!!!!!!!!!!!!!!!!!1");
+        return ResponseEntity.ok(benutzerService.getAlles());
     }
 
     // Für die Übesicht Seiten

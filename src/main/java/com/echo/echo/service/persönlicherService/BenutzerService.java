@@ -1,7 +1,6 @@
 package com.echo.echo.service.persönlicherService;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,56 +25,57 @@ public class BenutzerService {
         this.benutzerRepository = benutzerRepository;
     }
 
-    Integer id = 1;
+    Integer benutzerId = 1;
 
-    public Optional<Benutzer> getAlleBenutzerInfos() {
-        return benutzerRepository.findById(id);
+    public Benutzer getAlles() {
+        System.out.println("BENUTZER SERVICE !!!!!!!!!!!!!!!!!!1");
+        return benutzerRepository.findByIdWithAllData(benutzerId);
     }
 
     public AllgemeineDaten getAlleAllgemeinenDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getAllgemein();
     }
 
     public List<TräumeDaten> getAlleTräumeDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getTräume();
     }
     
     public List<SchlafDaten> getAlleSchlafDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getSchlaf();
     }
 
     public List<SchritteDaten> getAlleSchritteDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getSchritte();
     }
 
     public List<GedankenDaten> getAlleGedankenDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getGedanken();
     }
 
     public List<SportDaten> getAlleSportDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getSport();
     }
 
     public List<TrinkenDaten> getAlleTrinkenDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getTrinken();
     }
 
     public List<GemütDaten> getAlleGemütDaten() {
-        Benutzer benutzer = benutzerRepository.findById(1)
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
         return benutzer.getGemüt();
     }

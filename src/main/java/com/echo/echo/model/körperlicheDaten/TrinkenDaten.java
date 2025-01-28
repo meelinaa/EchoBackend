@@ -3,7 +3,7 @@ package com.echo.echo.model.körperlicheDaten;
 import java.time.LocalDate;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +28,7 @@ public class TrinkenDaten {
     public Double liter;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "benutzer_id") 
     private Benutzer benutzer;
 }

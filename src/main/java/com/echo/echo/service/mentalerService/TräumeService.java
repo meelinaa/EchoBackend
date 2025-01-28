@@ -21,6 +21,7 @@ public class TräumeService {
     }
 
     public TräumeDaten getTraum(LocalDate datum, Integer benutzerId) {
+        System.out.println("TRÄUME SERVICE !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return träumeRepository.getByDatumUndBenutzer(datum, benutzerId);
     }
 

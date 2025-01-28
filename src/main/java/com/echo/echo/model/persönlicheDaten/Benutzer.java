@@ -9,6 +9,7 @@ import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
 import com.echo.echo.model.mentaleDaten.GedankenDaten;
 import com.echo.echo.model.mentaleDaten.GemütDaten;
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -33,27 +34,35 @@ public class Benutzer {
     public String name;
 
     @OneToOne(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private AllgemeineDaten allgemein; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<TräumeDaten> träume; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<SchlafDaten> schlaf; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<SchritteDaten> schritte; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<GedankenDaten> gedanken; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<SportDaten> sport; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<TrinkenDaten> trinken; 
 
     @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<GemütDaten> gemüt;    
 
 }

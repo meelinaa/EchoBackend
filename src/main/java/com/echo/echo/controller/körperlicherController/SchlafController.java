@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
 import com.echo.echo.service.körperlicherService.SchlafService;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -21,15 +19,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/schlaf")
-@AllArgsConstructor
-@NoArgsConstructor
 public class SchlafController {
 
     private SchlafService schlafService;
-    private Integer benutzerId;
+    private Integer benutzerId = 1;
+
+    public SchlafController(SchlafService schlafService){
+        this.schlafService = schlafService;
+    }
+
 
     @GetMapping("/{datum}")
     public ResponseEntity<SchlafDaten> getSchlaf(@PathVariable LocalDate datum) {
+        System.out.println("SCHLAF CONTROLLER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
     }
 
