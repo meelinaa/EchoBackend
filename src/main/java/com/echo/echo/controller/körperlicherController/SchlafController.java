@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
 import com.echo.echo.service.körperlicherService.SchlafService;
 
-
 import java.time.LocalDate;
 
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @RestController
 @RequestMapping("/schlaf")
@@ -30,13 +27,27 @@ public class SchlafController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<SchlafDaten> getSchlaf(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSchlaf(@RequestBody SchlafDaten daten) {
-        schlafService.putSchlaf(daten, benutzerId);        
-        return ResponseEntity.ok().build();
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            schlafService.putSchlaf(daten, benutzerId);        
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
 }
