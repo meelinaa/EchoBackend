@@ -11,7 +11,6 @@ import com.echo.echo.model.mentaleDaten.GedankenDaten;
 import com.echo.echo.model.mentaleDaten.GemütDaten;
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
 import com.echo.echo.model.persönlicheDaten.AllgemeineDaten;
-import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.service.persönlicherService.BenutzerService;
 
 
@@ -31,13 +30,6 @@ public class BenutzerController {
         this.benutzerService = benutzerService;
     }
 
-    @GetMapping("/alles")
-    public ResponseEntity<Benutzer> getAlleBenutzerInfos() {
-        System.out.println("BENUTZER CONTroller !!!!!!!!!!!!!!!!!!1");
-        return ResponseEntity.ok(benutzerService.getAlles());
-    }
-
-    // Für die Übesicht Seiten
     @GetMapping("/allgemein")
     public ResponseEntity<AllgemeineDaten> getAlleAllgemeinenDaten() {
         return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +28,6 @@ public class TräumeDaten {
     public String traum;
 
     @ManyToOne
-    @JsonIgnore
     @JsonBackReference
     @JoinColumn(name = "benutzer_id") 
     private Benutzer benutzer;

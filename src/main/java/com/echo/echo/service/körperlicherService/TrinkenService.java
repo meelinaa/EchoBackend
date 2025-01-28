@@ -32,6 +32,7 @@ public class TrinkenService {
 
         if (vorhandeneDaten != null) {
             vorhandeneDaten.setLiter(daten.getLiter());
+            vorhandeneDaten.setDatum(daten.getDatum());
             trinkenRepository.save(vorhandeneDaten);
         } else {
             daten.setBenutzer(benutzer);

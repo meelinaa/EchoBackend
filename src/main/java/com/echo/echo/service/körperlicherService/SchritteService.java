@@ -34,6 +34,7 @@ public class SchritteService {
         if (vorhandeneDaten != null) {
             vorhandeneDaten.setSchritte(daten.getSchritte());
             vorhandeneDaten.setMeter(daten.getMeter());
+            vorhandeneDaten.setDatum(daten.getDatum());
             schritteRepository.save(vorhandeneDaten);
         } else {
             daten.setBenutzer(benutzer);

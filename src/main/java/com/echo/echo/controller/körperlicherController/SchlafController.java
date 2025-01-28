@@ -28,10 +28,8 @@ public class SchlafController {
         this.schlafService = schlafService;
     }
 
-
     @GetMapping("/{datum}")
     public ResponseEntity<SchlafDaten> getSchlaf(@PathVariable LocalDate datum) {
-        System.out.println("SCHLAF CONTROLLER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
     }
 

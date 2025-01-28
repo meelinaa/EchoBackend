@@ -34,6 +34,7 @@ public class TräumeService {
         if (vorhandeneDaten != null) {
             vorhandeneDaten.setBewertung(daten.getBewertung());
             vorhandeneDaten.setTraum(daten.getTraum());
+            vorhandeneDaten.setDatum(daten.getDatum());
             träumeRepository.save(vorhandeneDaten);
         } else {
             daten.setBenutzer(benutzer);

@@ -34,6 +34,7 @@ public class GemütService {
             vorhandeneDaten.setBeschreibung(daten.getBeschreibung());
             vorhandeneDaten.setGemütszustand(daten.getGemütszustand());
             vorhandeneDaten.setGrund(daten.getGrund());
+            vorhandeneDaten.setDatum(daten.getDatum());
             gemütRepository.save(vorhandeneDaten);
         } else {
             daten.setBenutzer(benutzer);

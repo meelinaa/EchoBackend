@@ -24,6 +24,7 @@ public class SchritteDaten {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
+    
     public LocalDate datum;
     public Integer schritte;
     public Double meter;

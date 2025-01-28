@@ -21,7 +21,6 @@ public class SchlafService {
     }
 
     public SchlafDaten getSchlaf(LocalDate datum, Integer benutzerId) {
-        System.out.println("SCHLAF Service !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
 
     }
@@ -35,6 +34,7 @@ public class SchlafService {
         if (vorhandeneDaten != null) {
             vorhandeneDaten.setSchlafBewertung(daten.getSchlafBewertung());
             vorhandeneDaten.setSchlafenszeit(daten.getSchlafenszeit());
+            vorhandeneDaten.setDatum(daten.getDatum());
             schlafRepository.save(vorhandeneDaten);
         } else {
             daten.setBenutzer(benutzer);

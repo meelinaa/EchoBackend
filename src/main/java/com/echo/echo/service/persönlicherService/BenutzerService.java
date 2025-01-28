@@ -27,11 +27,6 @@ public class BenutzerService {
 
     Integer benutzerId = 1;
 
-    public Benutzer getAlles() {
-        System.out.println("BENUTZER SERVICE !!!!!!!!!!!!!!!!!!1");
-        return benutzerRepository.findByIdWithAllData(benutzerId);
-    }
-
     public AllgemeineDaten getAlleAllgemeinenDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));

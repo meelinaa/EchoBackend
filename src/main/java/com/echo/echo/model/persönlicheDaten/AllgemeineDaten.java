@@ -2,7 +2,6 @@ package com.echo.echo.model.persönlicheDaten;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +30,6 @@ public class AllgemeineDaten {
     public Double bmi;
 
     @OneToOne
-    @JsonIgnore
     @JsonBackReference
     @JoinColumn(name = "benutzer_id") 
     private Benutzer benutzer;

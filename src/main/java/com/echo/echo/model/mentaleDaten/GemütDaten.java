@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

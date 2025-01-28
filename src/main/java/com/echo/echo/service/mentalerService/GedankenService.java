@@ -31,6 +31,7 @@ public class GedankenService {
 
         if (vorhandeneDaten != null) {
             vorhandeneDaten.setGedanken(daten.getGedanken());
+            vorhandeneDaten.setDatum(daten.getDatum());
             gedankenRepository.save(vorhandeneDaten);
         } else {
             daten.setBenutzer(benutzer);
