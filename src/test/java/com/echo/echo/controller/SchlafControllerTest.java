@@ -1,7 +1,6 @@
 package com.echo.echo.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,14 +22,11 @@ import org.springframework.http.ResponseEntity;
 
 import com.echo.echo.controller.körperlicherController.SchlafController;
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
-import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 import com.echo.echo.service.körperlicherService.SchlafService;
 
 public class SchlafControllerTest {
     SchlafController schlafController;
     SchlafService schlafService;
-    
-    BenutzerRepository benutzerRepository;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -131,7 +127,7 @@ public class SchlafControllerTest {
             
             assertEquals("Daten dürfen nicht null sein", exception.getMessage());
             
-            verify(schlafService, never()).getSchlaf(datum, benutzerId);
+            verify(schlafService, never()).putSchlaf(daten, benutzerId);
         }
         
     }

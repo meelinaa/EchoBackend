@@ -29,12 +29,27 @@ public class SchritteController {
 
     @GetMapping("/{datum}")
     public ResponseEntity<SchritteDaten> getSchritte(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(schritteService.getSchritte(datum, benutzerId));
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        try {
+            return ResponseEntity.ok(schritteService.getSchritte(datum, benutzerId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSchritte(@RequestBody SchritteDaten daten) {
-        schritteService.putSchritte(daten, benutzerId);        
-        return ResponseEntity.ok().build();
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            schritteService.putSchritte(daten, benutzerId);        
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
+
 }
