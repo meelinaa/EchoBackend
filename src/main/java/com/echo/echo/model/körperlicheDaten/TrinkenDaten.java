@@ -1,6 +1,6 @@
 package com.echo.echo.model.körperlicheDaten;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrinkenDaten {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public LocalDateTime datum;
+    public LocalDate datum;
     public Double liter;
 
     @ManyToOne

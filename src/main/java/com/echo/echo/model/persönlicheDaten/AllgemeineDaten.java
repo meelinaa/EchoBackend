@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,8 +19,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AllgemeineDaten {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
+
     public Double größe;
     public Double gewicht;
     public Integer alter;

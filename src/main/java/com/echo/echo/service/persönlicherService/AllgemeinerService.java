@@ -1,22 +1,26 @@
 package com.echo.echo.service.persönlicherService;
 
+import org.springframework.stereotype.Service;
+
 import com.echo.echo.model.persönlicheDaten.AllgemeineDaten;
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.repository.persönlicherRepository.AllgemeinRepository;
 import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-
-@AllArgsConstructor
-@NoArgsConstructor
+@Service
 public class AllgemeinerService {
 
 	private AllgemeinRepository allgemeinRepository;
 	private BenutzerRepository benutzerRepository;
 
+    public AllgemeinerService (AllgemeinRepository allgemeinRepository, BenutzerRepository benutzerRepository){
+        this.allgemeinRepository = allgemeinRepository;
+        this.benutzerRepository = benutzerRepository;
+    }
+
     public AllgemeineDaten getAllgemeinenDaten(Integer id) {
+        System.out.println("AllgemeinerService aufgerufen !!!!!!!!!!!!!!");
         return allgemeinRepository.findAllById(id);
     }
 

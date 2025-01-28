@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: echo_postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: Echo
+      POSTGRES_PASSWORD: passwordEcho
+      POSTGRES_DB: databaseEcho
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
+
+#Docker Starten
+# docker-compose up (Startet die Container im Vordergrund)
+# docker-compose up -d (Startet die Container im Hintergrund)
+
+#Docker Stoppen
+# docker-compose down
+
+#Container + Volumes löschen
+# docker-compose down --volumes
+
+#Docker komplett aufräumen
+# docker system prune
+
+#Ungenutzte Images löschen
+# docker system prune -a
+
+#Alle laufende Container zeigen
+# docker-compose ps
+
+#Logs eines bestimmten Services anzeigen
+# docker-compose logs <service-name>
+
+#Logs live verfolgen
+# docker-compose logs -f <service-name>
+
+#Service spezifisch stoppen
+# docker-compose stop <service-name>
+
+#Ein spezifisches Volume löschen
+# docker volume rm <volume-name>

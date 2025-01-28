@@ -20,21 +20,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/allgemein")
+@RequestMapping("/schlaf")
 @AllArgsConstructor
 @NoArgsConstructor
 public class SchlafController {
 
     private SchlafService schlafService;
+    private Integer benutzerId;
 
     @GetMapping("/{datum}")
     public ResponseEntity<SchlafDaten> getSchlaf(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(schlafService.getSchlaf(datum));
+        return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
     }
 
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSchlaf(@RequestBody SchlafDaten daten) {
-        schlafService.putSchlaf(daten);        
+        schlafService.putSchlaf(daten, benutzerId);        
         return ResponseEntity.ok().build();
     }
     

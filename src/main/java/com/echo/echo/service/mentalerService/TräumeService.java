@@ -2,20 +2,23 @@ package com.echo.echo.service.mentalerService;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Service;
+
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.repository.mentalerRepository.TräumeRepository;
 import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
+@Service
 public class TräumeService {
 
     TräumeRepository träumeRepository;
     BenutzerRepository benutzerRepository;
+
+    public TräumeService(TräumeRepository träumeRepository, BenutzerRepository benutzerRepository){
+        this.träumeRepository = träumeRepository;
+        this.benutzerRepository = benutzerRepository;
+    }
 
     public TräumeDaten getTraum(LocalDate datum, Integer benutzerId) {
         return träumeRepository.getByDatumUndBenutzer(datum, benutzerId);

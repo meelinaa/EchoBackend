@@ -26,15 +26,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class TrinkenController {
 
     private TrinkenService trinkenService;
+    private Integer benutzerId;
 
     @GetMapping("/{datum}")
     public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(trinkenService.getTrinken(datum));
+        return ResponseEntity.ok(trinkenService.getTrinken(datum, benutzerId));
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putTrinken(@RequestBody TrinkenDaten daten) {
-        trinkenService.putTrinken(daten);
+        trinkenService.putTrinken(daten, benutzerId);
         
         return ResponseEntity.ok().build();
     }

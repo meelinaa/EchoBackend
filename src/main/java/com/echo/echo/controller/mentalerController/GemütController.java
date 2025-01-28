@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GemütController {
+    
     private GemütService gemütService;
     private Integer benutzerId = 1;
 

@@ -15,5 +15,4 @@ public interface TrinkenRepository extends JpaRepository<TrinkenDaten, Integer>{
     @Query("SELECT daten FROM TrinkenDaten daten WHERE daten.benutzer.id = :benutzerId AND daten.datum = :datum")
     TrinkenDaten getByDatumUndBenutzer(@Param("datum") LocalDate datum, @Param("benutzerId") Integer benutzerId);
 
-    
 }

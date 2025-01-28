@@ -26,15 +26,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class SchritteController {
 
     private SchritteService schritteService;
+    private Integer benutzerId;
 
     @GetMapping("/{datum}")
     public ResponseEntity<SchritteDaten> getSchritte(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(schritteService.getSchritte(datum));
+        return ResponseEntity.ok(schritteService.getSchritte(datum, benutzerId));
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSchritte(@RequestBody SchritteDaten daten) {
-        schritteService.putSchritte(daten);        
+        schritteService.putSchritte(daten, benutzerId);        
         return ResponseEntity.ok().build();
     }
 }

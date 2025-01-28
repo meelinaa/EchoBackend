@@ -26,15 +26,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class GedankenController {
 
     private GedankenService gedankenService;
+    private Integer benutzerId = 1;
 
     @GetMapping("/{datum}")
     public ResponseEntity<GedankenDaten> getGedanken(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(gedankenService.getGedanken(datum));
+        return ResponseEntity.ok(gedankenService.getGedanken(datum, benutzerId));
     }
 
-    @PutMapping("hinzufügen")
+    @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putGedanken(@RequestBody GedankenDaten gedankenDaten) {
-        gedankenService.putGedanken(gedankenDaten);        
+        gedankenService.putGedanken(gedankenDaten, benutzerId);        
         return ResponseEntity.ok().build();
     }
     

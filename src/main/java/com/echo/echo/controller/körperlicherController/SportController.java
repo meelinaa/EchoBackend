@@ -26,15 +26,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class SportController {
 
     private SportService sportService;
+    private Integer benutzerId;
 
     @GetMapping("/{datum}")
     public ResponseEntity<SportDaten> getSport(@PathVariable LocalDate datum) {
-        return ResponseEntity.ok(sportService.getSport(datum));
+        return ResponseEntity.ok(sportService.getSport(datum, benutzerId));
     }
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSport(@RequestBody SportDaten daten) {
-        sportService.putSport(daten);        
+        sportService.putSport(daten, benutzerId);        
         return ResponseEntity.ok().build();
     }
 }
