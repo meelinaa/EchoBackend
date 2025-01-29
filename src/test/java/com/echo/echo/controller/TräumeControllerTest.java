@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,50 +19,51 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.echo.echo.controller.körperlicherController.SchlafController;
-import com.echo.echo.model.körperlicheDaten.SchlafDaten;
-import com.echo.echo.service.körperlicherService.SchlafService;
+import com.echo.echo.controller.mentalerController.TräumeController;
+import com.echo.echo.model.mentaleDaten.TräumeDaten;
+import com.echo.echo.service.mentalerService.TräumeService;
 
-public class SchlafControllerTest {
-    private SchlafController schlafController;
-    private SchlafService schlafService;
+public class TräumeControllerTest {
+
+    private TräumeController träumeController;
+    private TräumeService träumeService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
 
     @BeforeEach
     void setUp(){
-        schlafService = mock(SchlafService.class);
-        schlafController = new SchlafController(schlafService);
+        träumeService = mock(TräumeService.class);
+        träumeController = new TräumeController(träumeService);
     }
 
     @Nested
-    @DisplayName("Tests für die Methode getSchlaf()")
-    public class GetSchlafTest {
+    @DisplayName("Tests für die Methode getTraum()")
+    public class GetTraumTest {
 
         @Test
         void getSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+            TräumeDaten daten = new TräumeDaten();
+            daten.setDatum(datum);
+            daten.setBewertung(7);
+            daten.setTraum("Ich bin durch eine futuristische Stadt mit fliegenden Autos gelaufen.");
 
-            when(schlafService.getSchlaf(datum, benutzerId)).thenReturn(daten);
+            when(träumeService.getTraum(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<TräumeDaten> response = träumeController.getTraum(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
             assertEquals(daten, response.getBody());
 
-            verify(schlafService).getSchlaf(datum, benutzerId);            
+            verify(träumeService).getTraum(datum, benutzerId);            
         }    
         
         @Test
         void getSchlafMitErrorAusgabe(){
-            when(schlafService.getSchlaf(datum, benutzerId)).thenThrow(new RuntimeException());
+            when(träumeService.getTraum(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<TräumeDaten> response = träumeController.getTraum(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -75,28 +75,28 @@ public class SchlafControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.getSchlaf(datum);
+                träumeController.getTraum(datum);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());
             
-            verify(schlafService, never()).getSchlaf(datum, benutzerId);
+            verify(träumeService, never()).getTraum(datum, benutzerId);
         }
 
     }
 
     @Nested
-    @DisplayName("Tests für die Methode putSchlaf()")
-    public class PutSchlafTest {
+    @DisplayName("Tests für die Methode putTraum()")
+    public class PutTraumTest {
     
         @Test
         void putSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+            TräumeDaten daten = new TräumeDaten();
+            daten.setDatum(datum);
+            daten.setBewertung(7);
+            daten.setTraum("Ich bin durch eine futuristische Stadt mit fliegenden Autos gelaufen.");
 
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = träumeController.putTraum(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -104,13 +104,13 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafMitErrorAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
+            TräumeDaten daten = new TräumeDaten();
 
             doThrow(new RuntimeException())
-                .when(schlafService)
-                .putSchlaf(daten, benutzerId);
+                .when(träumeService)
+                .putTraum(daten, benutzerId);
           
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = träumeController.putTraum(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -119,16 +119,17 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafTestMitDatenGleichNull(){
-            SchlafDaten daten = null;
+            TräumeDaten daten = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.putSchlaf(daten);
+                träumeController.putTraum(daten);
             });
             
             assertEquals("Daten dürfen nicht null sein", exception.getMessage());
             
-            verify(schlafService, never()).putSchlaf(daten, benutzerId);
+            verify(träumeService, never()).putTraum(daten, benutzerId);
         }
         
     }
+    
 }

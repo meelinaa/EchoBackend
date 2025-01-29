@@ -24,7 +24,7 @@ public class AllgemeinController {
     private Integer benutzerId = 1;
 
     @GetMapping("/alles")
-    public ResponseEntity<AllgemeineDaten> getAllgemeinenDaten() {
+    public ResponseEntity<AllgemeineDaten> getAllgemeineDaten() {
         try {
             return ResponseEntity.ok(allgemeinerService.getAllgemeinenDaten(benutzerId));
         } catch (Exception e) {
@@ -33,12 +33,12 @@ public class AllgemeinController {
     }
     
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> setAlleAllgemeinenDaten(@RequestBody AllgemeineDaten daten) {
+    public ResponseEntity<Void> putAlleAllgemeinenDaten(@RequestBody AllgemeineDaten daten) {
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
-            allgemeinerService.setAlleAllgemeinenDaten(benutzerId, daten);
+            allgemeinerService.putAlleAllgemeinenDaten(benutzerId, daten);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);

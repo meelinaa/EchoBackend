@@ -41,9 +41,8 @@ public class BenutzerController {
 
     @GetMapping("/träume")
     public ResponseEntity<List<TräumeDaten>> getAlleTräumeDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleTräumeDaten());
         try {
-            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+            return ResponseEntity.ok(benutzerService.getAlleTräumeDaten());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }  
@@ -51,9 +50,8 @@ public class BenutzerController {
 
     @GetMapping("/schlaf")
     public ResponseEntity<List<SchlafDaten>> getAlleSchlafDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleSchlafDaten());
         try {
-            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+            return ResponseEntity.ok(benutzerService.getAlleSchlafDaten());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }  
@@ -61,9 +59,8 @@ public class BenutzerController {
 
     @GetMapping("/schritte")
     public ResponseEntity<List<SchritteDaten>> getAlleSchritteDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleSchritteDaten());
         try {
-            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+            return ResponseEntity.ok(benutzerService.getAlleSchritteDaten());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }  
@@ -71,9 +68,8 @@ public class BenutzerController {
 
     @GetMapping("/gedanken")
     public ResponseEntity<List<GedankenDaten>> getAlleGedankenDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleGedankenDaten());
         try {
-            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+            return ResponseEntity.ok(benutzerService.getAlleGedankenDaten());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }  
@@ -81,9 +77,8 @@ public class BenutzerController {
 
     @GetMapping("/sport")
     public ResponseEntity<List<SportDaten>> getAlleSportDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleSportDaten());
         try {
-            return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
+            return ResponseEntity.ok(benutzerService.getAlleSportDaten());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }  
@@ -91,11 +86,19 @@ public class BenutzerController {
 
     @GetMapping("/trinken")
     public ResponseEntity<List<TrinkenDaten>> getAlleTrinkenDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleTrinkenDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleTrinkenDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 
     @GetMapping("/gemüt")
     public ResponseEntity<List<GemütDaten>> getAlleGemütDaten() {
-        return ResponseEntity.ok(benutzerService.getAlleGemütDaten());
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleGemütDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }  
     }
 }

@@ -15,6 +15,7 @@ import com.echo.echo.model.persönlicheDaten.AllgemeineDaten;
 import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class BenutzerService {
@@ -29,49 +30,73 @@ public class BenutzerService {
 
     public AllgemeineDaten getAlleAllgemeinenDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getAllgemein() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getAllgemein();
     }
 
     public List<TräumeDaten> getAlleTräumeDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getTräume() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getTräume();
     }
     
     public List<SchlafDaten> getAlleSchlafDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getSchlaf() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getSchlaf();
     }
 
     public List<SchritteDaten> getAlleSchritteDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getSchritte() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getSchritte();
     }
 
     public List<GedankenDaten> getAlleGedankenDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getGedanken() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getGedanken();
     }
 
     public List<SportDaten> getAlleSportDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getSport() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getSport();
     }
 
     public List<TrinkenDaten> getAlleTrinkenDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getTrinken() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getTrinken();
     }
 
     public List<GemütDaten> getAlleGemütDaten() {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID 1 nicht gefunden"));
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
+        if (benutzer.getGemüt() == null) {
+            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+        }
         return benutzer.getGemüt();
     }
     

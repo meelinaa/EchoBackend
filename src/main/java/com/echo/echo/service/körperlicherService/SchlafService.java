@@ -9,6 +9,8 @@ import com.echo.echo.model.persönlicheDaten.Benutzer;
 import com.echo.echo.repository.körperlicherRepository.SchlafRepository;
 import com.echo.echo.repository.persönlicherRepository.BenutzerRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class SchlafService {
 
@@ -21,24 +23,48 @@ public class SchlafService {
     }
 
     public SchlafDaten getSchlaf(LocalDate datum, Integer benutzerId) {
-        return schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
-
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
+        }
+        if (benutzerId == null) {
+            throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
+        }
+        try {
+            SchlafDaten daten = schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
+            if (daten == null) {
+                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+            }
+            return daten;
+        } catch (Exception e) {
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+        }
     }
 
     public void putSchlaf(SchlafDaten daten, Integer benutzerId) {
+        if (daten == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        if (benutzerId == null) {
+            throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
+        }
+
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-        .orElseThrow(() -> new IllegalArgumentException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+                
+        try {
+            SchlafDaten vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
 
-        SchlafDaten vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
-
-        if (vorhandeneDaten != null) {
-            vorhandeneDaten.setSchlafBewertung(daten.getSchlafBewertung());
-            vorhandeneDaten.setSchlafenszeit(daten.getSchlafenszeit());
-            vorhandeneDaten.setDatum(daten.getDatum());
-            schlafRepository.save(vorhandeneDaten);
-        } else {
-            daten.setBenutzer(benutzer);
-            schlafRepository.save(daten);
+            if (vorhandeneDaten != null) {
+                vorhandeneDaten.setSchlafBewertung(daten.getSchlafBewertung());
+                vorhandeneDaten.setSchlafenszeit(daten.getSchlafenszeit());
+                vorhandeneDaten.setDatum(daten.getDatum());
+                schlafRepository.save(vorhandeneDaten);
+            } else {
+                daten.setBenutzer(benutzer);
+                schlafRepository.save(daten);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
         }
     }
     

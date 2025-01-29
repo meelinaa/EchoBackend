@@ -27,7 +27,7 @@ public class TräumeController {
     private Integer benutzerId = 1;
 
     @GetMapping("/{datum}")
-    public ResponseEntity<TräumeDaten> getAlleTraumInfos(@PathVariable LocalDate datum) {
+    public ResponseEntity<TräumeDaten> getTraum(@PathVariable LocalDate datum) {
         if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }

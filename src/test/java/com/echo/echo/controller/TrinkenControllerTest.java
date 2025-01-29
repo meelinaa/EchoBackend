@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,50 +19,49 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.echo.echo.controller.körperlicherController.SchlafController;
-import com.echo.echo.model.körperlicheDaten.SchlafDaten;
-import com.echo.echo.service.körperlicherService.SchlafService;
+import com.echo.echo.controller.körperlicherController.TrinkenController;
+import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
+import com.echo.echo.service.körperlicherService.TrinkenService;
 
-public class SchlafControllerTest {
-    private SchlafController schlafController;
-    private SchlafService schlafService;
+public class TrinkenControllerTest {
+
+    private TrinkenController trinkenController;
+    private TrinkenService trinkenService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
 
     @BeforeEach
     void setUp(){
-        schlafService = mock(SchlafService.class);
-        schlafController = new SchlafController(schlafService);
+        trinkenService = mock(TrinkenService.class);
+        trinkenController = new TrinkenController(trinkenService);
     }
-
+    
     @Nested
-    @DisplayName("Tests für die Methode getSchlaf()")
-    public class GetSchlafTest {
+    @DisplayName("Tests für die Methode getTrinken()")
+    public class getTrinkenTest {
 
         @Test
-        void getSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+        void getTrinkenMitKorrekterAusgabe(){
+            TrinkenDaten daten = new TrinkenDaten();
+            daten.setDatum(datum);
+            daten.setLiter(2.5);
 
-            when(schlafService.getSchlaf(datum, benutzerId)).thenReturn(daten);
+            when(trinkenService.getTrinken(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<TrinkenDaten> response = trinkenController.getTrinken(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
             assertEquals(daten, response.getBody());
-
-            verify(schlafService).getSchlaf(datum, benutzerId);            
+            verify(trinkenService).getTrinken(datum, benutzerId);            
         }    
         
         @Test
         void getSchlafMitErrorAusgabe(){
-            when(schlafService.getSchlaf(datum, benutzerId)).thenThrow(new RuntimeException());
+            when(trinkenService.getTrinken(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<TrinkenDaten> response = trinkenController.getTrinken(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -75,28 +73,25 @@ public class SchlafControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.getSchlaf(datum);
+                trinkenController.getTrinken(datum);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());
-            
-            verify(schlafService, never()).getSchlaf(datum, benutzerId);
+            verify(trinkenService, never()).getTrinken(datum, benutzerId);
         }
-
     }
 
     @Nested
-    @DisplayName("Tests für die Methode putSchlaf()")
-    public class PutSchlafTest {
+    @DisplayName("Tests für die Methode putTrinken()")
+    public class PutTrinkenTest {
     
         @Test
         void putSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+            TrinkenDaten daten = new TrinkenDaten();
+            daten.setDatum(datum);
+            daten.setLiter(2.5);
 
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = trinkenController.putTrinken(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -104,13 +99,13 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafMitErrorAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
+            TrinkenDaten daten = new TrinkenDaten();
 
             doThrow(new RuntimeException())
-                .when(schlafService)
-                .putSchlaf(daten, benutzerId);
+                .when(trinkenService)
+                .putTrinken(daten, benutzerId);
           
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = trinkenController.putTrinken(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -119,16 +114,15 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafTestMitDatenGleichNull(){
-            SchlafDaten daten = null;
+            TrinkenDaten daten = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.putSchlaf(daten);
+                trinkenController.putTrinken(daten);
             });
             
             assertEquals("Daten dürfen nicht null sein", exception.getMessage());
-            
-            verify(schlafService, never()).putSchlaf(daten, benutzerId);
+            verify(trinkenService, never()).putTrinken(daten, benutzerId);
         }
-        
     }
+    
 }

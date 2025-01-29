@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,50 +20,51 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.echo.echo.controller.körperlicherController.SchlafController;
-import com.echo.echo.model.körperlicheDaten.SchlafDaten;
-import com.echo.echo.service.körperlicherService.SchlafService;
+import com.echo.echo.controller.mentalerController.GemütController;
+import com.echo.echo.model.mentaleDaten.GemütDaten;
+import com.echo.echo.service.mentalerService.GemütService;
 
-public class SchlafControllerTest {
-    private SchlafController schlafController;
-    private SchlafService schlafService;
+public class GemütControllerTest {
+    
+    private GemütController gemütController;
+    private GemütService gemütService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
 
     @BeforeEach
     void setUp(){
-        schlafService = mock(SchlafService.class);
-        schlafController = new SchlafController(schlafService);
+        gemütService = mock(GemütService.class);
+        gemütController = new GemütController(gemütService);
     }
 
     @Nested
-    @DisplayName("Tests für die Methode getSchlaf()")
-    public class GetSchlafTest {
+    @DisplayName("Tests für die Methode getGemüt()")
+    public class GetGemütTest {
 
         @Test
         void getSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+            GemütDaten daten = new GemütDaten();
+            daten.setDatum(datum);
+            daten.setBeschreibung(List.of("Motiviert", "Produktiv"));
+            daten.setGemütszustand(7);
+            daten.setGrund(List.of("Erfolgreiches Coding-Projekt", "Guter Schlaf"));
 
-            when(schlafService.getSchlaf(datum, benutzerId)).thenReturn(daten);
+            when(gemütService.getGemüt(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<GemütDaten> response = gemütController.getGemüt(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
             assertEquals(daten, response.getBody());
-
-            verify(schlafService).getSchlaf(datum, benutzerId);            
+            verify(gemütService).getGemüt(datum, benutzerId);            
         }    
         
         @Test
         void getSchlafMitErrorAusgabe(){
-            when(schlafService.getSchlaf(datum, benutzerId)).thenThrow(new RuntimeException());
+            when(gemütService.getGemüt(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<GemütDaten> response = gemütController.getGemüt(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -75,28 +76,28 @@ public class SchlafControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.getSchlaf(datum);
+                gemütController.getGemüt(datum);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());
-            
-            verify(schlafService, never()).getSchlaf(datum, benutzerId);
+            verify(gemütService, never()).getGemüt(datum, benutzerId);
         }
 
     }
 
     @Nested
-    @DisplayName("Tests für die Methode putSchlaf()")
-    public class PutSchlafTest {
+    @DisplayName("Tests für die Methode putGemüt()")
+    public class PutGemütTest {
     
         @Test
         void putSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+            GemütDaten daten = new GemütDaten();
+            daten.setDatum(datum);
+            daten.setBeschreibung(List.of("Motiviert", "Produktiv"));
+            daten.setGemütszustand(7);
+            daten.setGrund(List.of("Erfolgreiches Coding-Projekt", "Guter Schlaf"));
 
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = gemütController.putGemüt(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -104,13 +105,13 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafMitErrorAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
+            GemütDaten daten = new GemütDaten();
 
             doThrow(new RuntimeException())
-                .when(schlafService)
-                .putSchlaf(daten, benutzerId);
+                .when(gemütService)
+                .putGemüt(daten, benutzerId);
           
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = gemütController.putGemüt(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -119,15 +120,14 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafTestMitDatenGleichNull(){
-            SchlafDaten daten = null;
+            GemütDaten daten = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.putSchlaf(daten);
+                gemütController.putGemüt(daten);
             });
             
             assertEquals("Daten dürfen nicht null sein", exception.getMessage());
-            
-            verify(schlafService, never()).putSchlaf(daten, benutzerId);
+            verify(gemütService, never()).putGemüt(daten, benutzerId);
         }
         
     }

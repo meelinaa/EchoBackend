@@ -20,50 +20,51 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.echo.echo.controller.körperlicherController.SchlafController;
-import com.echo.echo.model.körperlicheDaten.SchlafDaten;
-import com.echo.echo.service.körperlicherService.SchlafService;
+import com.echo.echo.controller.körperlicherController.SportController;
+import com.echo.echo.model.körperlicheDaten.SportDaten;
+import com.echo.echo.service.körperlicherService.SportService;
 
-public class SchlafControllerTest {
-    private SchlafController schlafController;
-    private SchlafService schlafService;
+public class SportControllerTest {
+
+    private SportController sportController;
+    private SportService sportService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
 
     @BeforeEach
     void setUp(){
-        schlafService = mock(SchlafService.class);
-        schlafController = new SchlafController(schlafService);
+        sportService = mock(SportService.class);
+        sportController = new SportController(sportService);
     }
 
     @Nested
-    @DisplayName("Tests für die Methode getSchlaf()")
-    public class GetSchlafTest {
-
+    @DisplayName("Tests für die Methode getSport()")
+    public class GetSportTest {
+    
         @Test
-        void getSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+        void getSportMitKorrekterAusgabe(){
+            SportDaten daten = new SportDaten();
+            daten.setSportart("laufen");
+            daten.setTrauningsDauer(LocalTime.parse("01:30:00"));
+            daten.setDatum(datum);
+            
+            when(sportService.getSport(datum, benutzerId)).thenReturn(daten);
 
-            when(schlafService.getSchlaf(datum, benutzerId)).thenReturn(daten);
-
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<SportDaten> response = sportController.getSport(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
             assertEquals(daten, response.getBody());
 
-            verify(schlafService).getSchlaf(datum, benutzerId);            
-        }    
-        
-        @Test
-        void getSchlafMitErrorAusgabe(){
-            when(schlafService.getSchlaf(datum, benutzerId)).thenThrow(new RuntimeException());
+            verify(sportService).getSport(datum, benutzerId); 
+        }
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+         @Test
+        void getSportMitErrorAusgabe(){
+            when(sportService.getSport(datum, benutzerId)).thenThrow(new RuntimeException());
+
+            ResponseEntity<SportDaten> response = sportController.getSport(datum);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -71,32 +72,31 @@ public class SchlafControllerTest {
         }  
         
         @Test
-        void getSchlafTestMitDatumGleichNull(){
+        void getSportTestMitDatumGleichNull(){
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.getSchlaf(datum);
+                sportController.getSport(datum);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());
-            
-            verify(schlafService, never()).getSchlaf(datum, benutzerId);
+            verify(sportService, never()).getSport(datum, benutzerId);
         }
-
     }
 
+    
     @Nested
-    @DisplayName("Tests für die Methode putSchlaf()")
-    public class PutSchlafTest {
+    @DisplayName("Tests für die Methode putSport()")
+    public class putSportTest {
     
         @Test
         void putSchlafMitKorrekterAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
-            daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
-            daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
+            SportDaten daten = new SportDaten();
+            daten.setSportart("laufen");
+            daten.setTrauningsDauer(LocalTime.parse("01:30:00"));
+            daten.setDatum(datum);
 
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = sportController.putSport(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -104,13 +104,13 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafMitErrorAusgabe(){
-            SchlafDaten daten = new SchlafDaten();
+            SportDaten daten = new SportDaten();
 
             doThrow(new RuntimeException())
-                .when(schlafService)
-                .putSchlaf(daten, benutzerId);
+                .when(sportService)
+                .putSport(daten, benutzerId);
           
-            ResponseEntity<Void> response = schlafController.putSchlaf(daten);
+            ResponseEntity<Void> response = sportController.putSport(daten);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -119,16 +119,15 @@ public class SchlafControllerTest {
 
         @Test
         void putSchlafTestMitDatenGleichNull(){
-            SchlafDaten daten = null;
+            SportDaten daten = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.putSchlaf(daten);
+                sportController.putSport(daten);
             });
             
             assertEquals("Daten dürfen nicht null sein", exception.getMessage());
-            
-            verify(schlafService, never()).putSchlaf(daten, benutzerId);
+            verify(sportService, never()).putSport(daten, benutzerId);
         }
-        
     }
+    
 }
