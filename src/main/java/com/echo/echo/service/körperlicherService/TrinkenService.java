@@ -36,7 +36,7 @@ public class TrinkenService {
             }
             return daten;
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
 
@@ -63,7 +63,7 @@ public class TrinkenService {
                 trinkenRepository.save(daten);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
     

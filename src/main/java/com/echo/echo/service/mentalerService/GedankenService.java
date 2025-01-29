@@ -35,7 +35,7 @@ public class GedankenService {
             }
             return daten;
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten", e);
         }
     }
 

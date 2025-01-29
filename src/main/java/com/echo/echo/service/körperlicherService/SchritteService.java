@@ -32,11 +32,11 @@ public class SchritteService {
         try {
             SchritteDaten daten = schritteRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+                throw new EntityNotFoundException("Keine Daten gefunden");
             }
             return daten;
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
 
     }
@@ -50,7 +50,7 @@ public class SchritteService {
         }
 
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+        .orElseThrow(() -> new EntityNotFoundException("Benutzer nicht gefunden"));
 
         try {
             SchritteDaten vorhandeneDaten = schritteRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
@@ -65,7 +65,7 @@ public class SchritteService {
                 schritteRepository.save(daten);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }  
     }
     

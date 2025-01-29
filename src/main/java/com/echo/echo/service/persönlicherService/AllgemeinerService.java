@@ -31,7 +31,7 @@ public class AllgemeinerService {
             }
             return daten;
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
 
@@ -61,7 +61,7 @@ public class AllgemeinerService {
                 allgemeinRepository.save(daten);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
 }

@@ -17,6 +17,8 @@ public class SchlafService {
     private SchlafRepository schlafRepository;
     private BenutzerRepository benutzerRepository;
 
+    public SchlafDaten vorhandeneDaten;
+
     public SchlafService(SchlafRepository schlafRepository, BenutzerRepository benutzerRepository){
         this.benutzerRepository = benutzerRepository;
         this.schlafRepository = schlafRepository;
@@ -32,11 +34,11 @@ public class SchlafService {
         try {
             SchlafDaten daten = schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+                throw new EntityNotFoundException("Keine Daten gefunden");
             }
             return daten;
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
 
@@ -49,10 +51,10 @@ public class SchlafService {
         }
 
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
-                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer nicht gefunden"));
                 
         try {
-            SchlafDaten vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
+            vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
 
             if (vorhandeneDaten != null) {
                 vorhandeneDaten.setSchlafBewertung(daten.getSchlafBewertung());
@@ -64,7 +66,7 @@ public class SchlafService {
                 schlafRepository.save(daten);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
     

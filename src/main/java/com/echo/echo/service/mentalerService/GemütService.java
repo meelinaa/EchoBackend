@@ -36,7 +36,7 @@ public class GemütService {
             }
             return daten;
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
 
@@ -65,7 +65,7 @@ public class GemütService {
                 gemütRepository.save(daten);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten: " + e.getMessage(), e);
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }
     }
 
