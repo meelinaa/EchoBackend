@@ -32,7 +32,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getAllgemein() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("AllgemeineDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getAllgemein();
     }
@@ -41,7 +41,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getTräume() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("TräumeDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getTräume();
     }
@@ -50,7 +50,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getSchlaf() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("SchlafDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getSchlaf();
     }
@@ -59,7 +59,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getSchritte() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("SchritteDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getSchritte();
     }
@@ -68,7 +68,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getGedanken() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("GedankenDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getGedanken();
     }
@@ -77,7 +77,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getSport() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("SportDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getSport();
     }
@@ -86,7 +86,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getTrinken() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("TrinkenDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getTrinken();
     }
@@ -95,7 +95,7 @@ public class BenutzerService {
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID" + benutzerId + "nicht gefunden"));
         if (benutzer.getGemüt() == null) {
-            throw new EntityNotFoundException("Allgemeine Daten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
+            throw new EntityNotFoundException("GemütDaten für Benutzer mit ID " + benutzerId + " nicht gefunden.");
         }
         return benutzer.getGemüt();
     }

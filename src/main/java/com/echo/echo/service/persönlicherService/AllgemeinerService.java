@@ -14,6 +14,7 @@ public class AllgemeinerService {
 
 	private AllgemeinRepository allgemeinRepository;
 	private BenutzerRepository benutzerRepository;
+    private AllgemeineDaten vorhandeneDaten;
 
     public AllgemeinerService (AllgemeinRepository allgemeinRepository, BenutzerRepository benutzerRepository){
         this.allgemeinRepository = allgemeinRepository;
@@ -47,7 +48,7 @@ public class AllgemeinerService {
                 .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
                 
         try {
-            AllgemeineDaten vorhandeneDaten = benutzer.getAllgemein();
+            vorhandeneDaten = benutzer.getAllgemein();
 
             if (vorhandeneDaten != null) {
                 vorhandeneDaten.setGröße(daten.getGröße());
