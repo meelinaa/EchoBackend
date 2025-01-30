@@ -40,6 +40,11 @@ Das Backend ist so konzipiert, dass neue Features leicht integriert werden könn
 - **JUnit & Mockito** – Unit-Tests für Service- und Controller-Methoden  
 - **Docker** – Containerisierung der Datenbank  
 
+## Tests & Qualitätssicherung
+- **100% Test Coverage** mit **JUnit**
+- Getestet wurden alle Services und Controller 
+- Fokus auf **Fehlerbehandlung und Validierung**
+
 ## 🛠️ Setup & Installation  
 
 1. **Projekt klonen**  
@@ -49,14 +54,44 @@ Das Backend ist so konzipiert, dass neue Features leicht integriert werden könn
     ```
 2. **Docker-Container für PostgreSQL starten**  
    ```sh
-   docker-compose up -d
+   docker run --name echo-db -e POSTGRES_USER=Echo -e POSTGRES_PASSWORD=passwordEcho -e POSTGRES_DB=databaseEcho -p 5433:5432 -d postgres
     ```
 3. **Anwendung starten**  
    ```sh
    mvn spring-boot:run    
     ```
 
+---
 
+## API-Endpunkte
+
+### **Allgemeine Daten**
+| Methode | Endpoint | Beschreibung |
+|---------|---------|--------------|
+| `GET` | `/allgemein/alles` | Ruft alle allgemeinen Daten eines Benutzers ab |
+| `PUT` | `/allgemein/hinzufügen` | Aktualisiert oder setzt allgemeine Daten |
+
+### **Mentale Daten**
+| Methode | Endpoint | Beschreibung |
+|---------|---------|--------------|
+| `GET` | `/gedanken/{datum}` | Ruft Gedanken für ein bestimmtes Datum ab |
+| `PUT` | `/gedanken/hinzufügen` | Fügt neue Gedanken hinzu |
+| `GET` | `/gemüt/{datum}` | Ruft Gemütszustand für ein bestimmtes Datum ab |
+| `PUT` | `/gemüt/hinzufügen` | Fügt neuen Gemütszustand hinzu |
+| `GET` | `/träume/{datum}` | Ruft Traumdaten für ein bestimmtes Datum ab |
+| `PUT` | `/träume/hinzufügen` | Fügt neue Traumdaten hinzu |
+
+### **Körperliche Daten**
+| Methode | Endpoint | Beschreibung |
+|---------|---------|--------------|
+| `GET` | `/schlaf/{datum}` | Ruft Schlafdaten für ein bestimmtes Datum ab |
+| `PUT` | `/schlaf/hinzufügen` | Fügt neue Schlafdaten hinzu |
+| `GET` | `/schritte/{datum}` | Ruft Schritte für ein bestimmtes Datum ab |
+| `PUT` | `/schritte/hinzufügen` | Fügt neue Schritte hinzu |
+| `GET` | `/sport/{datum}` | Ruft Sportdaten für ein bestimmtes Datum ab |
+| `PUT` | `/sport/hinzufügen` | Fügt neue Sportdaten hinzu |
+| `GET` | `/trinken/{datum}` | Ruft Trinkdaten für ein bestimmtes Datum ab |
+| `PUT` | `/trinken/hinzufügen` | Fügt neue Trinkdaten hinzu |
 
 ---
 
