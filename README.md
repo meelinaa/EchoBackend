@@ -54,7 +54,7 @@ Das Backend ist so konzipiert, dass neue Features leicht integriert werden könn
     ```
 2. **Docker-Container für PostgreSQL starten**  
    ```sh
-   docker run --name echo-db -e POSTGRES_USER=Echo -e POSTGRES_PASSWORD=passwordEcho -e POSTGRES_DB=databaseEcho -p 5433:5432 -d postgres
+   docker run --name echo_postgres -e POSTGRES_USER=Echo -e POSTGRES_PASSWORD=passwordEcho -e POSTGRES_DB=databaseEcho -p 5433:5432 -d postgres
     ```
 3. **Anwendung starten**  
    ```sh
