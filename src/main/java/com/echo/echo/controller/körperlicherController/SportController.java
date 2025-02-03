@@ -37,7 +37,7 @@ public class SportController {
         try {
             return ResponseEntity.ok(sportService.getSport(datum, benutzerId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
     
@@ -50,19 +50,19 @@ public class SportController {
             sportService.putSport(daten, benutzerId);        
         return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping("/analyse")
     public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
         if (heute == null) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
         try {
             return ResponseEntity.ok(analyseSportService.getTageAnalyse(heute, anzahltage));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 }

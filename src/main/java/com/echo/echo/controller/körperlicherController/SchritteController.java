@@ -25,9 +25,9 @@ public class SchritteController {
     private AnalyseSchritteService analyseSchritteService;
     private Integer benutzerId = 1;
 
-    public SchritteController(SchritteService schritteService, AnalyseSchritteService analyseSchritteService){
+    public SchritteController(SchritteService schritteService, AnalyseSchritteService analyseSchritteService2){
         this.schritteService = schritteService;
-        this.analyseSchritteService = analyseSchritteService;
+        this.analyseSchritteService = analyseSchritteService2;
     }
 
     @GetMapping("/{datum}")

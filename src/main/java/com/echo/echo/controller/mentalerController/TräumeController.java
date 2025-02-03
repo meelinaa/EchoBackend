@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
 import com.echo.echo.service.mentalerService.TräumeService;
-
+import com.echo.echo.service.persönlicherService.BenutzerService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class TräumeController {
     
     private TräumeService träumeService;
+    private BenutzerService benutzerService;
 
-    public TräumeController(TräumeService träumeService){
+    public TräumeController(TräumeService träumeService, BenutzerService benutzerService){
         this.träumeService = träumeService;
+        this.benutzerService = benutzerService;
     }
     private Integer benutzerId = 1;
 
@@ -34,13 +37,12 @@ public class TräumeController {
         try {
             return ResponseEntity.ok(träumeService.getTraum(datum, benutzerId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putTraum(@RequestBody TräumeDaten daten) {
-        
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
@@ -48,8 +50,17 @@ public class TräumeController {
             träumeService.putTraum(daten, benutzerId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/analyse")
+    public ResponseEntity<List<TräumeDaten>> getAlleTräumeDaten() {
+        try {
+            return ResponseEntity.ok(benutzerService.getAlleTräumeDaten());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }  
     }
     
 }

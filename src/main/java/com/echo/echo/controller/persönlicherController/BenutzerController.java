@@ -35,7 +35,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleAllgemeinenDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -44,7 +44,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleTräumeDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -53,7 +53,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleSchlafDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -62,7 +62,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleSchritteDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -71,7 +71,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleGedankenDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -80,7 +80,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleSportDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -89,7 +89,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleTrinkenDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 
@@ -98,7 +98,7 @@ public class BenutzerController {
         try {
             return ResponseEntity.ok(benutzerService.getAlleGemütDaten());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }  
     }
 }

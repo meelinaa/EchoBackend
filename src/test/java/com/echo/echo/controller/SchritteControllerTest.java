@@ -21,12 +21,14 @@ import org.springframework.http.ResponseEntity;
 
 import com.echo.echo.controller.körperlicherController.SchritteController;
 import com.echo.echo.model.körperlicheDaten.SchritteDaten;
+import com.echo.echo.service.analyse.AnalyseSchritteService;
 import com.echo.echo.service.körperlicherService.SchritteService;
 
 public class SchritteControllerTest {
     
     SchritteService schritteService;
     SchritteController schritteController;
+    AnalyseSchritteService analyseSchritteService;
 
     private LocalDate datum = LocalDate.parse("2025-02-01");
     private Integer benutzerId = 1;
@@ -34,7 +36,8 @@ public class SchritteControllerTest {
     @BeforeEach
     void setUp(){
         schritteService = mock(SchritteService.class);
-        schritteController = new SchritteController(schritteService);
+        analyseSchritteService = mock(AnalyseSchritteService.class);
+        schritteController = new SchritteController(schritteService, analyseSchritteService);
     }
 
     @Nested

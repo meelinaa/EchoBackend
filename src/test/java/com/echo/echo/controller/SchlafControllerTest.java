@@ -22,11 +22,13 @@ import org.springframework.http.ResponseEntity;
 
 import com.echo.echo.controller.körperlicherController.SchlafController;
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
+import com.echo.echo.service.analyse.AnalyseSchlafService;
 import com.echo.echo.service.körperlicherService.SchlafService;
 
 public class SchlafControllerTest {
     private SchlafController schlafController;
     private SchlafService schlafService;
+    private AnalyseSchlafService analyseSchlafService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -34,7 +36,8 @@ public class SchlafControllerTest {
     @BeforeEach
     void setUp(){
         schlafService = mock(SchlafService.class);
-        schlafController = new SchlafController(schlafService);
+        analyseSchlafService = mock(AnalyseSchlafService.class);
+        schlafController = new SchlafController(schlafService, analyseSchlafService);
     }
 
     @Nested

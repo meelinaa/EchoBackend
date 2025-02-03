@@ -21,12 +21,14 @@ import org.springframework.http.ResponseEntity;
 
 import com.echo.echo.controller.körperlicherController.TrinkenController;
 import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
+import com.echo.echo.service.analyse.AnalyseTrinkenService;
 import com.echo.echo.service.körperlicherService.TrinkenService;
 
 public class TrinkenControllerTest {
 
     private TrinkenController trinkenController;
     private TrinkenService trinkenService;
+    private AnalyseTrinkenService analyseTrinkenService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -34,7 +36,8 @@ public class TrinkenControllerTest {
     @BeforeEach
     void setUp(){
         trinkenService = mock(TrinkenService.class);
-        trinkenController = new TrinkenController(trinkenService);
+        analyseTrinkenService = mock(AnalyseTrinkenService.class);
+        trinkenController = new TrinkenController(trinkenService, analyseTrinkenService);
     }
     
     @Nested

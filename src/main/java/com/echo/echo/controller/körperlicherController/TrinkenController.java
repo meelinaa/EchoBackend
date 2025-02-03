@@ -39,7 +39,7 @@ public class TrinkenController {
         try {
             return ResponseEntity.ok(trinkenService.getTrinken(datum, benutzerId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
     
@@ -52,19 +52,19 @@ public class TrinkenController {
             trinkenService.putTrinken(daten, benutzerId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping("/analyse")
     public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
         if (heute == null) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
         try {
             return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(heute, anzahltage));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 }

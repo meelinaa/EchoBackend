@@ -28,7 +28,7 @@ public class AllgemeinController {
         try {
             return ResponseEntity.ok(allgemeinerService.getAllgemeinenDaten(benutzerId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }        
     }
     
@@ -41,7 +41,7 @@ public class AllgemeinController {
             allgemeinerService.putAlleAllgemeinenDaten(benutzerId, daten);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 

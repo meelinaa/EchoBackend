@@ -38,7 +38,7 @@ public class SchlafController {
         try {
             return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -51,19 +51,19 @@ public class SchlafController {
             schlafService.putSchlaf(daten, benutzerId);        
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping("/analyse")
     public ResponseEntity<List<SchlafDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
         if (heute == null) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
         try {
             return ResponseEntity.ok(analyseSchlafService.getTageAnalyse(heute, anzahltage));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
     
