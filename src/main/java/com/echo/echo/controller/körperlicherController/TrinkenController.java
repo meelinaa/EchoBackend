@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
+import com.echo.echo.service.analyse.AnalyseTrinkenService;
 import com.echo.echo.service.körperlicherService.TrinkenService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class TrinkenController {
 
     private TrinkenService trinkenService;
+    private AnalyseTrinkenService analyseTrinkenService;
     private Integer benutzerId = 1;
 
-    public TrinkenController(TrinkenService trinkenService){
+    public TrinkenController(TrinkenService trinkenService, AnalyseTrinkenService analyseTrinkenService){
         this.trinkenService = trinkenService;
+        this.analyseTrinkenService = analyseTrinkenService;
     }
 
     @GetMapping("/{datum}")
@@ -41,13 +45,24 @@ public class TrinkenController {
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putTrinken(@RequestBody TrinkenDaten daten) {
-        
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             trinkenService.putTrinken(daten, benutzerId);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/analyse")
+    public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
+        if (heute == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        try {
+            return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(heute, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }

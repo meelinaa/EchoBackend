@@ -93,6 +93,19 @@ Das Backend ist so konzipiert, dass neue Features leicht integriert werden könn
 | `GET` | `/trinken/{datum}` | Ruft Trinkdaten für ein bestimmtes Datum ab |
 | `PUT` | `/trinken/hinzufügen` | Fügt neue Trinkdaten hinzu |
 
+### **Benutzerbezogene Abfragen (Alle Daten eines Nutzers)**
+
+| Methode | Endpoint | Beschreibung |
+|---------|---------|--------------|
+| `GET` | `/benutzer/allgemein` | Ruft alle allgemeinen Daten eines Benutzers ab |
+| `GET` | `/benutzer/träume` | Ruft alle Traumdaten eines Benutzers ab |
+| `GET` | `/benutzer/schlaf` | Ruft alle Schlafdaten eines Benutzers ab |
+| `GET` | `/benutzer/schritte` | Ruft alle Schritte eines Benutzers ab |
+| `GET` | `/benutzer/gedanken` | Ruft alle Gedanken eines Benutzers ab |
+| `GET` | `/benutzer/sport` | Ruft alle Sporteinträge eines Benutzers ab |
+| `GET` | `/benutzer/trinken` | Ruft alle Trinkdaten eines Benutzers ab |
+| `GET` | `/benutzer/gemüt` | Ruft alle Gemütsdaten eines Benutzers ab |
+
 ---
 
 ## Lizenz

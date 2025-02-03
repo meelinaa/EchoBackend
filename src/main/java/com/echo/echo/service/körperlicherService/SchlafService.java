@@ -1,6 +1,7 @@
 package com.echo.echo.service.körperlicherService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,14 @@ public class SchlafService {
         try {
             SchlafDaten daten = schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden");
+                SchlafDaten neueDaten = new SchlafDaten(); 
+                neueDaten.setDatum(datum);
+                neueDaten.setSchlafBewertung(0);
+                neueDaten.setSchlafenszeit(LocalTime.parse("00:00"));
+                return neueDaten;
+            } else {
+                return daten;
             }
-            return daten;
         } catch (Exception e) {
             throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
         }

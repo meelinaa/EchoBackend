@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.körperlicheDaten.SchritteDaten;
+import com.echo.echo.service.analyse.AnalyseSchritteService;
 import com.echo.echo.service.körperlicherService.SchritteService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +17,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
 @RestController
 @RequestMapping("/schritte")
 public class SchritteController {
 
     private SchritteService schritteService;
+    private AnalyseSchritteService analyseSchritteService;
     private Integer benutzerId = 1;
 
-    public SchritteController(SchritteService schritteService){
+    public SchritteController(SchritteService schritteService, AnalyseSchritteService analyseSchritteService){
         this.schritteService = schritteService;
+        this.analyseSchritteService = analyseSchritteService;
     }
 
     @GetMapping("/{datum}")
@@ -35,7 +38,7 @@ public class SchritteController {
         try {
             return ResponseEntity.ok(schritteService.getSchritte(datum, benutzerId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
     
@@ -48,8 +51,21 @@ public class SchritteController {
             schritteService.putSchritte(daten, benutzerId);        
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/analyse")
+    public ResponseEntity<List<SchritteDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
+        if (heute == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            return ResponseEntity.ok(analyseSchritteService.getTageAnalyse(heute, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    
 
 }

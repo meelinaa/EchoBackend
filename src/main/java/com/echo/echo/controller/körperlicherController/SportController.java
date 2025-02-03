@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.körperlicheDaten.SportDaten;
+import com.echo.echo.service.analyse.AnalyseSportService;
 import com.echo.echo.service.körperlicherService.SportService;
 
-
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 @RequestMapping("/sport")
 public class SportController {
 
     private SportService sportService;
+    private AnalyseSportService analyseSportService;
     private Integer benutzerId = 1;
 
-    public SportController(SportService sportService){
+    public SportController(SportService sportService, AnalyseSportService analyseSportService){
         this.sportService = sportService;
+        this.analyseSportService = analyseSportService;
     }
 
     @GetMapping("/{datum}")
@@ -51,6 +52,17 @@ public class SportController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
-        
+    }
+
+    @GetMapping("/analyse")
+    public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
+        if (heute == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        try {
+            return ResponseEntity.ok(analyseSportService.getTageAnalyse(heute, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
