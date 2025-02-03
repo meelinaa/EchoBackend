@@ -22,11 +22,13 @@ import org.springframework.http.ResponseEntity;
 import com.echo.echo.controller.mentalerController.GedankenController;
 import com.echo.echo.model.mentaleDaten.GedankenDaten;
 import com.echo.echo.service.mentalerService.GedankenService;
+import com.echo.echo.service.persönlicherService.BenutzerService;
 
 public class GedankenControllerTest {
     
     private GedankenController gedankenController;
     private GedankenService gedankenService;
+    private BenutzerService benutzerService;
     
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -34,7 +36,8 @@ public class GedankenControllerTest {
     @BeforeEach
     void setUp(){
         gedankenService = mock(GedankenService.class);
-        gedankenController = new GedankenController(gedankenService);
+        benutzerService = mock(BenutzerService.class);
+        gedankenController = new GedankenController(gedankenService, benutzerService);
     }
 
     @Nested

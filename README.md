@@ -106,6 +106,7 @@ Das Backend ist so konzipiert, dass neue Features leicht integriert werden könn
 | `GET` | `/benutzer/trinken` | Ruft alle Trinkdaten eines Benutzers ab |
 | `GET` | `/benutzer/gemüt` | Ruft alle Gemütsdaten eines Benutzers ab |
 
+
 ---
 
 ## Lizenz

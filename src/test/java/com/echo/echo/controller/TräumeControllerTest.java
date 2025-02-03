@@ -22,11 +22,13 @@ import org.springframework.http.ResponseEntity;
 import com.echo.echo.controller.mentalerController.TräumeController;
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
 import com.echo.echo.service.mentalerService.TräumeService;
+import com.echo.echo.service.persönlicherService.BenutzerService;
 
 public class TräumeControllerTest {
 
     private TräumeController träumeController;
     private TräumeService träumeService;
+    private BenutzerService benutzerService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -34,7 +36,8 @@ public class TräumeControllerTest {
     @BeforeEach
     void setUp(){
         träumeService = mock(TräumeService.class);
-        träumeController = new TräumeController(träumeService);
+        benutzerService = mock(BenutzerService.class);
+        träumeController = new TräumeController(träumeService, benutzerService);
     }
 
     @Nested

@@ -22,12 +22,14 @@ import org.springframework.http.ResponseEntity;
 
 import com.echo.echo.controller.körperlicherController.SportController;
 import com.echo.echo.model.körperlicheDaten.SportDaten;
+import com.echo.echo.service.analyse.AnalyseSportService;
 import com.echo.echo.service.körperlicherService.SportService;
 
 public class SportControllerTest {
 
     private SportController sportController;
     private SportService sportService;
+    private AnalyseSportService analyseSportService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -35,7 +37,8 @@ public class SportControllerTest {
     @BeforeEach
     void setUp(){
         sportService = mock(SportService.class);
-        sportController = new SportController(sportService);
+        analyseSportService = mock(AnalyseSportService.class);
+        sportController = new SportController(sportService, analyseSportService);
     }
 
     @Nested

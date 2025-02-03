@@ -23,11 +23,13 @@ import org.springframework.http.ResponseEntity;
 import com.echo.echo.controller.mentalerController.GemütController;
 import com.echo.echo.model.mentaleDaten.GemütDaten;
 import com.echo.echo.service.mentalerService.GemütService;
+import com.echo.echo.service.persönlicherService.BenutzerService;
 
 public class GemütControllerTest {
     
     private GemütController gemütController;
     private GemütService gemütService;
+    private BenutzerService benutzerService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -35,7 +37,8 @@ public class GemütControllerTest {
     @BeforeEach
     void setUp(){
         gemütService = mock(GemütService.class);
-        gemütController = new GemütController(gemütService);
+        benutzerService = mock(BenutzerService.class);
+        gemütController = new GemütController(gemütService, benutzerService);
     }
 
     @Nested
