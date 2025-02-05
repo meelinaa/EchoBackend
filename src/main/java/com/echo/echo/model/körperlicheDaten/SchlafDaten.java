@@ -27,7 +27,6 @@ public class SchlafDaten {
     public Integer id;
     public LocalDate datum;   
     public LocalTime schlafenszeit;
-    public Integer schlafBewertung;
 
     @ManyToOne
     @JsonBackReference

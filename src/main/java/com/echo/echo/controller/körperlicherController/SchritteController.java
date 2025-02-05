@@ -57,7 +57,7 @@ public class SchritteController {
 
     @GetMapping("/analyse")
     public ResponseEntity<List<SchritteDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
-        if (heute == null) {
+        if (heute == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {

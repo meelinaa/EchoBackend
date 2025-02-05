@@ -26,6 +26,7 @@ public class TrinkenDaten {
     public Integer id;
     public LocalDate datum;
     public Double liter;
+    public Integer becher;
 
     @ManyToOne
     @JsonBackReference

@@ -1,6 +1,7 @@
 package com.echo.echo.service.analyse;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
@@ -36,6 +37,19 @@ public class AnalyseSchlafService {
             throw new RuntimeException("Es konnten keine Daten abgerufen werden.");
         }
         
+    }
+
+    public String getDurchschnittZeit(LocalDate heute, Integer anzahltage) {
+        List<SchlafDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        int summe = 0;
+        for (SchlafDaten tag : woche) {
+            summe += tag.getSchlafenszeit().toSecondOfDay();
+        }
+
+        LocalTime durchschnitt = LocalTime.ofSecondOfDay(summe / anzahltage);
+
+        return "Du hast in den letzen " + anzahltage + " Tagen im Durchschnitt " + durchschnitt + "h geschlafen.";
     }
     
 }

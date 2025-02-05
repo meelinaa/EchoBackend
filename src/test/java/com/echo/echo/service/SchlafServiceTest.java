@@ -52,7 +52,6 @@ public class SchlafServiceTest {
         void getSchlafMitKorrekterAusgabe(){
             SchlafDaten daten = new SchlafDaten();
             daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
 
             when(schlafRepository.getByDatumUndBenutzer(datum, benutzerId)).thenReturn(daten);
@@ -128,12 +127,10 @@ public class SchlafServiceTest {
 
             SchlafDaten daten = new SchlafDaten();
             daten.setDatum(datum);
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.of(23, 15));
 
             SchlafDaten vorhandeneDaten = spy(new SchlafDaten());
             vorhandeneDaten.setDatum(datum);
-            vorhandeneDaten.setSchlafBewertung(daten.getSchlafBewertung());
             vorhandeneDaten.setSchlafenszeit(daten.getSchlafenszeit());
 
             when(benutzerRepository.findById(benutzerId)).thenReturn(Optional.of(benutzer));
@@ -141,7 +138,6 @@ public class SchlafServiceTest {
 
             schlafService.putSchlaf(daten, benutzerId);
 
-            verify(vorhandeneDaten).setSchlafBewertung(daten.getSchlafBewertung());
             verify(vorhandeneDaten).setSchlafenszeit(LocalTime.of(23, 15));
             verify(vorhandeneDaten).setDatum(daten.getDatum());
 
@@ -156,7 +152,6 @@ public class SchlafServiceTest {
 
             SchlafDaten daten = spy(new SchlafDaten());
             daten.setDatum(datum);
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.of(23, 15));
 
             when(benutzerRepository.findById(benutzerId)).thenReturn(Optional.of(benutzer));
@@ -172,7 +167,6 @@ public class SchlafServiceTest {
         void putSchlafMitKorrekterAusgabeWennBenutzerNichtExistiert(){
             SchlafDaten daten = spy(new SchlafDaten());
             daten.setDatum(datum);
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.of(23, 15));
 
             SchlafDaten vorhandeneDaten = spy(new SchlafDaten());
@@ -187,7 +181,6 @@ public class SchlafServiceTest {
             
             verify(schlafRepository, never()).getByDatumUndBenutzer(daten.getDatum(), benutzerId);
 
-            verify(vorhandeneDaten, never()).setSchlafBewertung(daten.getSchlafBewertung());
             verify(vorhandeneDaten, never()).setSchlafenszeit(LocalTime.of(23, 15));
             verify(vorhandeneDaten, never()).setDatum(daten.getDatum());
             verify(schlafRepository, never()).save(vorhandeneDaten);
@@ -203,7 +196,6 @@ public class SchlafServiceTest {
 
             SchlafDaten daten = spy(new SchlafDaten());
             daten.setDatum(datum);
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.of(23, 15));
 
             SchlafDaten vorhandeneDaten = spy(new SchlafDaten());
@@ -221,7 +213,6 @@ public class SchlafServiceTest {
 
             // verify(schlafRepository, never()).getByDatumUndBenutzer(any(), any());
 
-            verify(vorhandeneDaten, never()).setSchlafBewertung(daten.getSchlafBewertung());
             verify(vorhandeneDaten, never()).setSchlafenszeit(LocalTime.of(23, 15));
             verify(vorhandeneDaten, never()).setDatum(daten.getDatum());
             verify(schlafRepository, never()).save(vorhandeneDaten);
@@ -247,7 +238,6 @@ public class SchlafServiceTest {
 
             verify(schlafRepository, never()).getByDatumUndBenutzer(any(), any());
 
-            verify(vorhandeneDaten, never()).setSchlafBewertung(any());
             verify(vorhandeneDaten, never()).setSchlafenszeit(any());
             verify(vorhandeneDaten, never()).setDatum(any());
             verify(schlafRepository, never()).save(any());
@@ -265,7 +255,6 @@ public class SchlafServiceTest {
 
             SchlafDaten daten = spy(new SchlafDaten());
             daten.setDatum(datum);
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.of(23, 15));
 
             SchlafDaten vorhandeneDaten = spy(new SchlafDaten());
@@ -278,7 +267,6 @@ public class SchlafServiceTest {
 
             verify(schlafRepository, never()).getByDatumUndBenutzer(any(), any());
 
-            verify(vorhandeneDaten, never()).setSchlafBewertung(any());
             verify(vorhandeneDaten, never()).setSchlafenszeit(any());
             verify(vorhandeneDaten, never()).setDatum(any());
             verify(schlafRepository, never()).save(any());

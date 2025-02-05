@@ -23,6 +23,7 @@ public class AllgemeineDaten {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
+    public String name;
     public Double größe;
     public Double gewicht;
     public Integer alter;

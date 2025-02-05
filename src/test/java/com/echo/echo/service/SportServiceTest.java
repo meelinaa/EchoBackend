@@ -52,7 +52,7 @@ public class SportServiceTest {
             SportDaten daten = new SportDaten();
             daten.setDatum(datum);
             daten.setSportart("Joggen");
-            daten.setTrauningsDauer(LocalTime.of(1, 30));
+            daten.setTrainingsDauer(LocalTime.of(1, 30));
 
             when(sportRepository.getByDatumUndBenutzer(datum, benutzerId)).thenReturn(daten);
 
@@ -124,7 +124,7 @@ public class SportServiceTest {
             SportDaten daten = new SportDaten();
             daten.setDatum(datum);
             daten.setSportart("Joggen");
-            daten.setTrauningsDauer(LocalTime.of(1, 30));
+            daten.setTrainingsDauer(LocalTime.of(1, 30));
 
             SportDaten vorhandeneDaten = spy(new SportDaten());
             vorhandeneDaten.setDatum(datum);
@@ -135,7 +135,7 @@ public class SportServiceTest {
             sportService.putSport(daten, benutzerId);
 
             verify(vorhandeneDaten).setSportart(daten.getSportart());
-            verify(vorhandeneDaten).setTrauningsDauer(daten.getTrauningsDauer());
+            verify(vorhandeneDaten).setTrainingsDauer(daten.getTrainingsDauer());
             // verify(vorhandeneDaten).setDatum(daten.getDatum());
             verify(sportRepository).save(vorhandeneDaten);
         }
@@ -148,7 +148,7 @@ public class SportServiceTest {
             SportDaten daten = spy(new SportDaten());
             daten.setDatum(datum);
             daten.setSportart("Joggen");
-            daten.setTrauningsDauer(LocalTime.of(1, 30));
+            daten.setTrainingsDauer(LocalTime.of(1, 30));
 
             when(benutzerRepository.findById(benutzerId)).thenReturn(Optional.of(benutzer));
             when(sportRepository.getByDatumUndBenutzer(datum, benutzerId)).thenReturn(null);
@@ -202,7 +202,7 @@ public class SportServiceTest {
             SportDaten daten = spy(new SportDaten());
             daten.setDatum(datum);
             daten.setSportart("Joggen");
-            daten.setTrauningsDauer(LocalTime.of(1, 30));
+            daten.setTrainingsDauer(LocalTime.of(1, 30));
 
             when(benutzerRepository.findById(benutzerId)).thenReturn(Optional.of(benutzer));
             doThrow(new RuntimeException("Test-Fehler"))

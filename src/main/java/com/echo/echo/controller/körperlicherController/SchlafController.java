@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 @RestController
 @RequestMapping("/schlaf")
 public class SchlafController {
@@ -57,7 +58,7 @@ public class SchlafController {
 
     @GetMapping("/analyse")
     public ResponseEntity<List<SchlafDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
-        if (heute == null) {
+        if (heute == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
@@ -66,5 +67,19 @@ public class SchlafController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/analyse/durchschnitt/zeit")
+    public ResponseEntity<String> getDurchschnittZeit(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
+        if (heute == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            return ResponseEntity.ok(analyseSchlafService.getDurchschnittZeit(heute, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    
     
 }

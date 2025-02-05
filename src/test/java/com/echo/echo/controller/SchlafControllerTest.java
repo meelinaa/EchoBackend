@@ -48,7 +48,6 @@ public class SchlafControllerTest {
         void getSchlafMitKorrekterAusgabe(){
             SchlafDaten daten = new SchlafDaten();
             daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
 
             when(schlafService.getSchlaf(datum, benutzerId)).thenReturn(daten);
@@ -96,7 +95,6 @@ public class SchlafControllerTest {
         void putSchlafMitKorrekterAusgabe(){
             SchlafDaten daten = new SchlafDaten();
             daten.setDatum(LocalDate.parse("2025-02-01"));
-            daten.setSchlafBewertung(5);
             daten.setSchlafenszeit(LocalTime.parse("23:15:00"));
 
             ResponseEntity<Void> response = schlafController.putSchlaf(daten);

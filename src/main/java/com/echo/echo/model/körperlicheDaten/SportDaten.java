@@ -26,7 +26,7 @@ public class SportDaten {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public LocalDate datum;
-    public LocalTime trauningsDauer;
+    public LocalTime trainingsDauer;
     public String sportart;
 
     @ManyToOne

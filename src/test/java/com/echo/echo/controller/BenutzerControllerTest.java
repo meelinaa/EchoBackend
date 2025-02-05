@@ -121,7 +121,6 @@ public class BenutzerControllerTest {
             List<SchlafDaten> daten = new ArrayList<>();
             SchlafDaten schlaf = new SchlafDaten();
             schlaf.setDatum(datum);
-            schlaf.setSchlafBewertung(3);
             schlaf.setSchlafenszeit(LocalTime.parse("01:20:00"));
             daten.add(schlaf);
 
@@ -250,7 +249,7 @@ public class BenutzerControllerTest {
         @Test
         void getAlleTrinkenDatenMitKorrekterAusgabe() {
             List<TrinkenDaten> daten = new ArrayList<>();
-            daten.add(new TrinkenDaten(1, null, 2.0, null));
+            daten.add(new TrinkenDaten(1, null, 2.0, 2, null));
 
             when(benutzerService.getAlleTrinkenDaten()).thenReturn(daten);
 

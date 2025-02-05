@@ -56,7 +56,7 @@ public class SportController {
 
     @GetMapping("/analyse")
     public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
-        if (heute == null) {
+        if (heute == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {

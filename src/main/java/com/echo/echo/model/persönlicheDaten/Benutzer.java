@@ -31,7 +31,6 @@ public class Benutzer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
-    public String name;
 
     @OneToOne(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

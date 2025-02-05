@@ -37,7 +37,6 @@ public class SchlafService {
             if (daten == null) {
                 SchlafDaten neueDaten = new SchlafDaten(); 
                 neueDaten.setDatum(datum);
-                neueDaten.setSchlafBewertung(0);
                 neueDaten.setSchlafenszeit(LocalTime.parse("00:00"));
                 return neueDaten;
             } else {
@@ -63,7 +62,6 @@ public class SchlafService {
             vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
 
             if (vorhandeneDaten != null) {
-                vorhandeneDaten.setSchlafBewertung(daten.getSchlafBewertung());
                 vorhandeneDaten.setSchlafenszeit(daten.getSchlafenszeit());
                 vorhandeneDaten.setDatum(daten.getDatum());
                 schlafRepository.save(vorhandeneDaten);

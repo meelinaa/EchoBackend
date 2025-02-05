@@ -56,7 +56,7 @@ public class SportService {
 
             if (vorhandeneDaten != null) {
                 vorhandeneDaten.setSportart(daten.getSportart());
-                vorhandeneDaten.setTrauningsDauer(daten.getTrauningsDauer());
+                vorhandeneDaten.setTrainingsDauer(daten.getTrainingsDauer());
                 vorhandeneDaten.setDatum(daten.getDatum());
                 sportRepository.save(vorhandeneDaten);
             } else {

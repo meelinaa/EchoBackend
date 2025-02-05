@@ -49,7 +49,7 @@ public class SportControllerTest {
         void getSportMitKorrekterAusgabe(){
             SportDaten daten = new SportDaten();
             daten.setSportart("laufen");
-            daten.setTrauningsDauer(LocalTime.parse("01:30:00"));
+            daten.setTrainingsDauer(LocalTime.parse("01:30:00"));
             daten.setDatum(datum);
             
             when(sportService.getSport(datum, benutzerId)).thenReturn(daten);
@@ -96,7 +96,7 @@ public class SportControllerTest {
         void putSchlafMitKorrekterAusgabe(){
             SportDaten daten = new SportDaten();
             daten.setSportart("laufen");
-            daten.setTrauningsDauer(LocalTime.parse("01:30:00"));
+            daten.setTrainingsDauer(LocalTime.parse("01:30:00"));
             daten.setDatum(datum);
 
             ResponseEntity<Void> response = sportController.putSport(daten);
