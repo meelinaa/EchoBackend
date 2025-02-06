@@ -1,6 +1,7 @@
 package com.echo.echo.service.körperlicherService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class SportService {
     }
 
     public SportDaten getSport(LocalDate datum, Integer benutzerId) {
+
         if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
@@ -32,7 +34,14 @@ public class SportService {
         try {
             SportDaten daten = sportRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+                Benutzer benutzer = benutzerRepository.findById(benutzerId).orElse(new Benutzer());
+                benutzer.setId(benutzerId);
+                SportDaten neueDaten = new SportDaten();
+                neueDaten.setBenutzer(benutzer);
+                neueDaten.setDatum(datum);
+                neueDaten.setSportart("Sport Art");
+                neueDaten.setTrainingsDauer(LocalTime.parse("06:30"));
+                return neueDaten;
             }
             return daten;
         } catch (Exception e) {

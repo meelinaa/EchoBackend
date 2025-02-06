@@ -1,6 +1,7 @@
 package com.echo.echo.controller.körperlicherController;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.körperlicheDaten.SportDaten;
@@ -30,18 +31,22 @@ public class SportController {
         this.analyseSportService = analyseSportService;
     }
 
-    @GetMapping("/{datumReactFormat}")
-    public ResponseEntity<SportDaten> getSport(@PathVariable String datumReactFormat) {
-        if (datumReactFormat == null) {
+    @GetMapping("/{datum}")
+    public ResponseEntity<SportDaten> getSport(@PathVariable String datum) {
+        if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(sportService.getSport(datum, benutzerId));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+            LocalDate parsedDate = LocalDate.parse(datum, formatter);
+            return ResponseEntity.ok(sportService.getSport(parsedDate, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
+
+
+    
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSport(@RequestBody SportDaten daten) {
@@ -50,14 +55,14 @@ public class SportController {
         }
         try {
             sportService.putSport(daten, benutzerId);        
-        return ResponseEntity.ok().build();
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
     @GetMapping("/analyse")
-    public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestBody String datumReactFormat, @RequestBody Integer anzahltage) {
+    public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestParam String datumReactFormat, @RequestParam Integer anzahltage) {
         if (datumReactFormat == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
