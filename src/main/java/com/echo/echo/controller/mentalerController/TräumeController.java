@@ -8,6 +8,7 @@ import com.echo.echo.service.mentalerService.TräumeService;
 import com.echo.echo.service.persönlicherService.BenutzerService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,13 @@ public class TräumeController {
     }
     private Integer benutzerId = 1;
 
-    @GetMapping("/{datum}")
-    public ResponseEntity<TräumeDaten> getTraum(@PathVariable LocalDate datum) {
-        if (datum == null) {
+    @GetMapping("/{datumReactFormat}")
+    public ResponseEntity<TräumeDaten> getTraum(@PathVariable String datumReactFormat) {
+        if (datumReactFormat == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
             return ResponseEntity.ok(träumeService.getTraum(datum, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

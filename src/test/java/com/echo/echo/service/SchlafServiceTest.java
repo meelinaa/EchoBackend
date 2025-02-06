@@ -90,15 +90,18 @@ public class SchlafServiceTest {
         @Test
         void getSchlafErrorAusgabeWennDatenGleichNull(){
             SchlafDaten daten = null;
+            LocalDate datum = LocalDate.parse("2025-02-01");
+
+            SchlafDaten neueDaten = new SchlafDaten();
+            neueDaten.setDatum(LocalDate.parse("2025-02-01"));
+            neueDaten.setSchlafenszeit(LocalTime.parse("00:00"));
 
             when(schlafRepository.getByDatumUndBenutzer(datum, benutzerId)).thenReturn(daten);
 
-            Exception exception = assertThrows(RuntimeException.class, () -> {
-                schlafService.getSchlaf(datum, benutzerId);
-            });
+            SchlafDaten response = schlafService.getSchlaf(datum, benutzerId);
             
-            assertEquals("Ein unerwarteter Fehler ist aufgetreten", exception.getMessage());
             verify(schlafRepository).getByDatumUndBenutzer(datum, benutzerId);
+            assertEquals(neueDaten, response);
         }
 
         @Test

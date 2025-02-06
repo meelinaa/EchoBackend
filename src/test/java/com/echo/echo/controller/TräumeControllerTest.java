@@ -32,6 +32,7 @@ public class TräumeControllerTest {
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
+    private String datumReactFormat = "2025-02-01";
 
     @BeforeEach
     void setUp(){
@@ -53,7 +54,7 @@ public class TräumeControllerTest {
 
             when(träumeService.getTraum(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<TräumeDaten> response = träumeController.getTraum(datum);
+            ResponseEntity<TräumeDaten> response = träumeController.getTraum(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -66,7 +67,7 @@ public class TräumeControllerTest {
         void getSchlafMitErrorAusgabe(){
             when(träumeService.getTraum(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<TräumeDaten> response = träumeController.getTraum(datum);
+            ResponseEntity<TräumeDaten> response = träumeController.getTraum(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -78,7 +79,7 @@ public class TräumeControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                träumeController.getTraum(datum);
+                träumeController.getTraum(datumReactFormat);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());

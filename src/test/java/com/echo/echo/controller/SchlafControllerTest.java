@@ -32,6 +32,7 @@ public class SchlafControllerTest {
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
+    private String datumReactFormat = "2025-02-01";
 
     @BeforeEach
     void setUp(){
@@ -52,7 +53,7 @@ public class SchlafControllerTest {
 
             when(schlafService.getSchlaf(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -65,7 +66,7 @@ public class SchlafControllerTest {
         void getSchlafMitErrorAusgabe(){
             when(schlafService.getSchlaf(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datum);
+            ResponseEntity<SchlafDaten> response = schlafController.getSchlaf(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -77,7 +78,7 @@ public class SchlafControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schlafController.getSchlaf(datum);
+                schlafController.getSchlaf(datumReactFormat);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());

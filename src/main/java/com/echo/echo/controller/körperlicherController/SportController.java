@@ -8,6 +8,7 @@ import com.echo.echo.service.analyse.AnalyseSportService;
 import com.echo.echo.service.körperlicherService.SportService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,13 @@ public class SportController {
         this.analyseSportService = analyseSportService;
     }
 
-    @GetMapping("/{datum}")
-    public ResponseEntity<SportDaten> getSport(@PathVariable LocalDate datum) {
-        if (datum == null) {
+    @GetMapping("/{datumReactFormat}")
+    public ResponseEntity<SportDaten> getSport(@PathVariable String datumReactFormat) {
+        if (datumReactFormat == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
             return ResponseEntity.ok(sportService.getSport(datum, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -55,12 +57,13 @@ public class SportController {
     }
 
     @GetMapping("/analyse")
-    public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
-        if (heute == null || anzahltage == null) {
+    public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestBody String datumReactFormat, @RequestBody Integer anzahltage) {
+        if (datumReactFormat == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            return ResponseEntity.ok(analyseSportService.getTageAnalyse(heute, anzahltage));
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
+            return ResponseEntity.ok(analyseSportService.getTageAnalyse(datum, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

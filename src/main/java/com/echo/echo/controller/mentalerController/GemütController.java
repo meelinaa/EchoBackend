@@ -10,6 +10,7 @@ import com.echo.echo.service.persönlicherService.BenutzerService;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +30,8 @@ public class GemütController {
         this.benutzerService = benutzerService;
     }
 
-    @GetMapping("/{datum}")
-    public ResponseEntity<GemütDaten> getGemüt(@PathVariable LocalDate datum) {
+    @GetMapping("/{datumReactFormat}")
+    public ResponseEntity<GemütDaten> getGemüt(@PathVariable @DateTimeFormat(pattern = "d.M.yyyy") LocalDate datum) {
         if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }

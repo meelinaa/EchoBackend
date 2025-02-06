@@ -32,6 +32,7 @@ public class TrinkenControllerTest {
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
+    private String datumReactFormat = "2025-02-01";
 
     @BeforeEach
     void setUp(){
@@ -52,7 +53,7 @@ public class TrinkenControllerTest {
 
             when(trinkenService.getTrinken(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<TrinkenDaten> response = trinkenController.getTrinken(datum);
+            ResponseEntity<TrinkenDaten> response = trinkenController.getTrinken(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -64,7 +65,7 @@ public class TrinkenControllerTest {
         void getSchlafMitErrorAusgabe(){
             when(trinkenService.getTrinken(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<TrinkenDaten> response = trinkenController.getTrinken(datum);
+            ResponseEntity<TrinkenDaten> response = trinkenController.getTrinken(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -76,7 +77,7 @@ public class TrinkenControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                trinkenController.getTrinken(datum);
+                trinkenController.getTrinken(datumReactFormat);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());

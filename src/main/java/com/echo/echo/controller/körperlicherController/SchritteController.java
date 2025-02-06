@@ -8,6 +8,7 @@ import com.echo.echo.service.analyse.AnalyseSchritteService;
 import com.echo.echo.service.körperlicherService.SchritteService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,13 @@ public class SchritteController {
         this.analyseSchritteService = analyseSchritteService2;
     }
 
-    @GetMapping("/{datum}")
-    public ResponseEntity<SchritteDaten> getSchritte(@PathVariable LocalDate datum) {
-        if (datum == null) {
+    @GetMapping("/{datumReactFormat}")
+    public ResponseEntity<SchritteDaten> getSchritte(@PathVariable String datumReactFormat) {
+        if (datumReactFormat == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
             return ResponseEntity.ok(schritteService.getSchritte(datum, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -56,12 +58,13 @@ public class SchritteController {
     }
 
     @GetMapping("/analyse")
-    public ResponseEntity<List<SchritteDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
-        if (heute == null || anzahltage == null) {
+    public ResponseEntity<List<SchritteDaten>> getTageAnalyse(@RequestBody String datumReactFormat , @RequestBody Integer anzahltage) {
+        if (datumReactFormat == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            return ResponseEntity.ok(analyseSchritteService.getTageAnalyse(heute, anzahltage));
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
+            return ResponseEntity.ok(analyseSchritteService.getTageAnalyse(datum, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

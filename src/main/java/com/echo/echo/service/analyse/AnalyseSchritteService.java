@@ -3,9 +3,12 @@ package com.echo.echo.service.analyse;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.echo.echo.model.körperlicheDaten.SchritteDaten;
 import com.echo.echo.service.körperlicherService.SchritteService;
 
+@Service
 public class AnalyseSchritteService {
 
     private final SchritteService schritteService;

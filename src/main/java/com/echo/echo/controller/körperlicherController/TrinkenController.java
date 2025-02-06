@@ -8,6 +8,7 @@ import com.echo.echo.service.analyse.AnalyseTrinkenService;
 import com.echo.echo.service.körperlicherService.TrinkenService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,13 @@ public class TrinkenController {
         this.analyseTrinkenService = analyseTrinkenService;
     }
 
-    @GetMapping("/{datum}")
-    public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable LocalDate datum) {
-        if (datum == null) {
+    @GetMapping("/{datumReactFormat}")
+    public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable String datumReactFormat) {
+        if (datumReactFormat == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
             return ResponseEntity.ok(trinkenService.getTrinken(datum, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -55,12 +57,14 @@ public class TrinkenController {
     }
 
     @GetMapping("/analyse")
-    public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@RequestBody LocalDate heute, @RequestBody Integer anzahltage) {
-        if (heute == null || anzahltage == null) {
+    public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@RequestBody String datumReactFormat, @RequestBody Integer anzahltage) {
+        if (datumReactFormat == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(heute, anzahltage));
+            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
+
+            return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(datum, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

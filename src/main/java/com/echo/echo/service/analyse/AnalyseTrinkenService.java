@@ -3,12 +3,15 @@ package com.echo.echo.service.analyse;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.echo.echo.model.körperlicheDaten.TrinkenDaten;
 import com.echo.echo.service.körperlicherService.TrinkenService;
 
+@Service
 public class AnalyseTrinkenService {
     
-     private final TrinkenService trinkenService;
+    private final TrinkenService trinkenService;
     private Integer benutzerId = 1;
 
     public AnalyseTrinkenService(TrinkenService trinkenService){

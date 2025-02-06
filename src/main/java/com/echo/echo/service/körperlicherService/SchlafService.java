@@ -38,6 +38,8 @@ public class SchlafService {
                 SchlafDaten neueDaten = new SchlafDaten(); 
                 neueDaten.setDatum(datum);
                 neueDaten.setSchlafenszeit(LocalTime.parse("00:00"));
+                System.out.println(neueDaten.getDatum() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
+                System.out.println(neueDaten.getSchlafenszeit()+ "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
                 return neueDaten;
             } else {
                 return daten;

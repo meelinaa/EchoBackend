@@ -31,6 +31,7 @@ public class SchritteControllerTest {
     AnalyseSchritteService analyseSchritteService;
 
     private LocalDate datum = LocalDate.parse("2025-02-01");
+    private String datumReactFormat = "2025-02-01";
     private Integer benutzerId = 1;
 
     @BeforeEach
@@ -53,7 +54,7 @@ public class SchritteControllerTest {
 
             when(schritteService.getSchritte(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<SchritteDaten> response = schritteController.getSchritte(datum);
+            ResponseEntity<SchritteDaten> response = schritteController.getSchritte(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -66,7 +67,7 @@ public class SchritteControllerTest {
         void getSchritteMitErrorAusgabe(){
             when(schritteService.getSchritte(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<SchritteDaten> response = schritteController.getSchritte(datum);
+            ResponseEntity<SchritteDaten> response = schritteController.getSchritte(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -78,7 +79,7 @@ public class SchritteControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                schritteController.getSchritte(datum);
+                schritteController.getSchritte(datumReactFormat);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());

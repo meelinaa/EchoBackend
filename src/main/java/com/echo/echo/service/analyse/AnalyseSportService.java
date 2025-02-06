@@ -3,9 +3,12 @@ package com.echo.echo.service.analyse;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.echo.echo.model.körperlicheDaten.SportDaten;
 import com.echo.echo.service.körperlicherService.SportService;
 
+@Service
 public class AnalyseSportService {
 
     private final SportService sportService;

@@ -32,6 +32,7 @@ public class GedankenControllerTest {
     
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
+    private String datumReactFormat = "2025-02-01";
 
     @BeforeEach
     void setUp(){
@@ -52,7 +53,7 @@ public class GedankenControllerTest {
 
             when(gedankenService.getGedanken(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<GedankenDaten> response = gedankenController.getGedanken(datum);
+            ResponseEntity<GedankenDaten> response = gedankenController.getGedanken(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -65,7 +66,7 @@ public class GedankenControllerTest {
         void getSchlafMitErrorAusgabe(){
             when(gedankenService.getGedanken(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<GedankenDaten> response = gedankenController.getGedanken(datum);
+            ResponseEntity<GedankenDaten> response = gedankenController.getGedanken(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -77,7 +78,7 @@ public class GedankenControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                gedankenController.getGedanken(datum);
+                gedankenController.getGedanken(datumReactFormat);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());

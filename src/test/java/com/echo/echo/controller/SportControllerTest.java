@@ -33,6 +33,7 @@ public class SportControllerTest {
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
+    private String datumReactFormat = "2025-02-01";
 
     @BeforeEach
     void setUp(){
@@ -54,7 +55,7 @@ public class SportControllerTest {
             
             when(sportService.getSport(datum, benutzerId)).thenReturn(daten);
 
-            ResponseEntity<SportDaten> response = sportController.getSport(datum);
+            ResponseEntity<SportDaten> response = sportController.getSport(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -67,7 +68,7 @@ public class SportControllerTest {
         void getSportMitErrorAusgabe(){
             when(sportService.getSport(datum, benutzerId)).thenThrow(new RuntimeException());
 
-            ResponseEntity<SportDaten> response = sportController.getSport(datum);
+            ResponseEntity<SportDaten> response = sportController.getSport(datumReactFormat);
 
             assertNotNull(response);
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -79,7 +80,7 @@ public class SportControllerTest {
             datum = null;
 
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                sportController.getSport(datum);
+                sportController.getSport(datumReactFormat);
             });
             
             assertEquals("Datum darf nicht null sein", exception.getMessage());

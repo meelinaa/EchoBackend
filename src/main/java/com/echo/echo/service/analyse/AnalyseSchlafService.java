@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.echo.echo.model.körperlicheDaten.SchlafDaten;
 import com.echo.echo.service.körperlicherService.SchlafService;
 
-
+@Service
 public class AnalyseSchlafService {
 
     private final SchlafService schlafService;
