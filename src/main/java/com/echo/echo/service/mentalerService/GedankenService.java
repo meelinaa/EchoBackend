@@ -28,10 +28,17 @@ public class GedankenService {
         if (benutzerId == null) {
             throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
         }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+               
         try {
             GedankenDaten daten = gedankenRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+                GedankenDaten neueDaten = new GedankenDaten();
+                neueDaten.setDatum(datum);
+                neueDaten.setGedanken("Deine Gedanken");
+                neueDaten.setBenutzer(benutzer);
+                return neueDaten;
             }
             return daten;
         } catch (Exception e) {

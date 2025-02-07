@@ -37,16 +37,12 @@ public class SportController {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
-            LocalDate parsedDate = LocalDate.parse(datum, formatter);
+            LocalDate parsedDate = LocalDate.parse(datum);
             return ResponseEntity.ok(sportService.getSport(parsedDate, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
-
-
-    
     
     @PutMapping("/hinzufügen")
     public ResponseEntity<Void> putSport(@RequestBody SportDaten daten) {

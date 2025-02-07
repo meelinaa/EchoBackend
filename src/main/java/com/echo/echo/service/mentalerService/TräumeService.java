@@ -29,10 +29,16 @@ public class TräumeService {
         if (benutzerId == null) {
             throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
         }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
         try {
             TräumeDaten daten = träumeRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+                TräumeDaten neueDaten = new TräumeDaten();
+                neueDaten.setBenutzer(benutzer);
+                neueDaten.setBewertung(0);
+                neueDaten.setDatum(datum);
+                neueDaten.setTraum("Dein Traum");
             }
             return daten;
         } catch (Exception e) {

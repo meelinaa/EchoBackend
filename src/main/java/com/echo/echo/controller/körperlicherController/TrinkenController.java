@@ -30,14 +30,14 @@ public class TrinkenController {
         this.analyseTrinkenService = analyseTrinkenService;
     }
 
-    @GetMapping("/{datumReactFormat}")
-    public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable String datumReactFormat) {
-        if (datumReactFormat == null) {
+    @GetMapping("/{datum}")
+    public ResponseEntity<TrinkenDaten> getTrinken(@PathVariable String datum) {
+        if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(trinkenService.getTrinken(datum, benutzerId));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(trinkenService.getTrinken(parsedDate, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

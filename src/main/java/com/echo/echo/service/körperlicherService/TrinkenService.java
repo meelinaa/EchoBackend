@@ -29,10 +29,17 @@ public class TrinkenService {
         if (benutzerId == null) {
             throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
         }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
         try {
             TrinkenDaten daten = trinkenRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden für Datum " + datum + " und Benutzer-ID " + benutzerId);
+                TrinkenDaten neueDaten = new TrinkenDaten();
+                neueDaten.setBenutzer(benutzer);
+                neueDaten.setBecher(0);
+                neueDaten.setDatum(datum);
+                neueDaten.setLiter(0.);
+                return neueDaten;
             }
             return daten;
         } catch (Exception e) {

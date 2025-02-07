@@ -8,7 +8,6 @@ import com.echo.echo.service.mentalerService.GedankenService;
 import com.echo.echo.service.persönlicherService.BenutzerService;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -32,15 +31,14 @@ public class GedankenController {
         this.benutzerService = benutzerService;
     }
 
-    @GetMapping("/{datumReactFormat}")
-    public ResponseEntity<GedankenDaten> getGedanken(@PathVariable String datumReactFormat) {
-        if (datumReactFormat == null) {
+    @GetMapping("/{datum}")
+    public ResponseEntity<GedankenDaten> getGedanken(@PathVariable String datum) {
+        if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-
-            return ResponseEntity.ok(gedankenService.getGedanken(datum, benutzerId));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(gedankenService.getGedanken(parsedDate, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

@@ -29,10 +29,17 @@ public class SchritteService {
         if (benutzerId == null) {
             throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
         }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
         try {
             SchritteDaten daten = schritteRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                throw new EntityNotFoundException("Keine Daten gefunden");
+                SchritteDaten neueDaten = new SchritteDaten();
+                neueDaten.setBenutzer(benutzer);
+                neueDaten.setDatum(datum);
+                neueDaten.setMeter(0.);
+                neueDaten.setSchritte(0);
+                return neueDaten;
             }
             return daten;
         } catch (Exception e) {

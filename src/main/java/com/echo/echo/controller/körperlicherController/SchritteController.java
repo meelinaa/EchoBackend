@@ -31,14 +31,14 @@ public class SchritteController {
         this.analyseSchritteService = analyseSchritteService2;
     }
 
-    @GetMapping("/{datumReactFormat}")
-    public ResponseEntity<SchritteDaten> getSchritte(@PathVariable String datumReactFormat) {
-        if (datumReactFormat == null) {
+    @GetMapping("/{datum}")
+    public ResponseEntity<SchritteDaten> getSchritte(@PathVariable String datum) {
+        if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(schritteService.getSchritte(datum, benutzerId));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(schritteService.getSchritte(parsedDate, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

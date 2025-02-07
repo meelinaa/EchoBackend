@@ -32,14 +32,14 @@ public class SchlafController {
     }
 
 
-    @GetMapping("/{datumReactFormat}")
-    public ResponseEntity<SchlafDaten> getSchlaf(@PathVariable String datumReactFormat) {
-        if (datumReactFormat == null) {
+    @GetMapping("/{datum}")
+    public ResponseEntity<SchlafDaten> getSchlaf(@PathVariable String datum) {
+        if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(schlafService.getSchlaf(datum, benutzerId));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(schlafService.getSchlaf(parsedDate, benutzerId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

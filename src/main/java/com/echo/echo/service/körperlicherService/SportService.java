@@ -24,23 +24,23 @@ public class SportService {
     }
 
     public SportDaten getSport(LocalDate datum, Integer benutzerId) {
-
         if (datum == null) {
             throw new IllegalArgumentException("Datum darf nicht null sein");
         }
         if (benutzerId == null) {
             throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
         }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+             
         try {
             SportDaten daten = sportRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
-                Benutzer benutzer = benutzerRepository.findById(benutzerId).orElse(new Benutzer());
-                benutzer.setId(benutzerId);
                 SportDaten neueDaten = new SportDaten();
                 neueDaten.setBenutzer(benutzer);
                 neueDaten.setDatum(datum);
                 neueDaten.setSportart("Sport Art");
-                neueDaten.setTrainingsDauer(LocalTime.parse("06:30"));
+                neueDaten.setTrainingsDauer(LocalTime.parse("00:00"));
                 return neueDaten;
             }
             return daten;

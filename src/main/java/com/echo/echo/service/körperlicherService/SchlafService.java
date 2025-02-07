@@ -32,14 +32,15 @@ public class SchlafService {
         if (benutzerId == null) {
             throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
         }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
         try {
             SchlafDaten daten = schlafRepository.getByDatumUndBenutzer(datum, benutzerId);
             if (daten == null) {
                 SchlafDaten neueDaten = new SchlafDaten(); 
                 neueDaten.setDatum(datum);
                 neueDaten.setSchlafenszeit(LocalTime.parse("00:00"));
-                System.out.println(neueDaten.getDatum() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
-                System.out.println(neueDaten.getSchlafenszeit()+ "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11");
+                neueDaten.setBenutzer(benutzer);
                 return neueDaten;
             } else {
                 return daten;
