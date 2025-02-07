@@ -8,7 +8,6 @@ import com.echo.echo.service.analyse.AnalyseTrinkenService;
 import com.echo.echo.service.körperlicherService.TrinkenService;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -56,15 +55,14 @@ public class TrinkenController {
         }
     }
 
-    @GetMapping("/analyse")
-    public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@RequestBody String datumReactFormat, @RequestBody Integer anzahltage) {
-        if (datumReactFormat == null || anzahltage == null) {
+    @GetMapping("/analyse/{datum}/{anzahltage}")
+    public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-
-            return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(datum, anzahltage));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(parsedDate, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
