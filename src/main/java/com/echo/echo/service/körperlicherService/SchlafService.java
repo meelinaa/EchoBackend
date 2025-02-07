@@ -18,8 +18,6 @@ public class SchlafService {
     private SchlafRepository schlafRepository;
     private BenutzerRepository benutzerRepository;
 
-    public SchlafDaten vorhandeneDaten;
-
     public SchlafService(SchlafRepository schlafRepository, BenutzerRepository benutzerRepository){
         this.benutzerRepository = benutzerRepository;
         this.schlafRepository = schlafRepository;
@@ -62,7 +60,7 @@ public class SchlafService {
                 .orElseThrow(() -> new EntityNotFoundException("Benutzer nicht gefunden"));
                 
         try {
-            vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
+            SchlafDaten vorhandeneDaten = schlafRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
 
             if (vorhandeneDaten != null) {
                 vorhandeneDaten.setSchlafenszeit(daten.getSchlafenszeit());

@@ -39,6 +39,7 @@ public class TräumeService {
                 neueDaten.setBewertung(0);
                 neueDaten.setDatum(datum);
                 neueDaten.setTraum("Dein Traum");
+                return neueDaten;
             }
             return daten;
         } catch (Exception e) {
