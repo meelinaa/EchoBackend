@@ -59,5 +59,70 @@ public class AnalyseSchritteService {
 
         return summe;
     }
+
+    public SchritteDaten getLängsteSchritte(LocalDate heute, Integer anzahltage) {
+        List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SchritteDaten längsteSchritte = null;
+        Integer schritteRef = 0;
+
+        for (SchritteDaten tag : woche) {
+            if (tag.getSchritte() > schritteRef) {
+                längsteSchritte = tag;
+                schritteRef = tag.getSchritte();
+            }
+        }
+
+        return längsteSchritte;
+    }
+
+    public SchritteDaten getKürzereSchritte(LocalDate heute, Integer anzahltage) {
+        List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SchritteDaten kürzereSchritte = null;
+        Integer schritteRef = 999999999;
+
+        for (SchritteDaten tag : woche) {
+            if (tag.getSchritte() < schritteRef) {
+                kürzereSchritte = tag;
+                schritteRef = tag.getSchritte();
+            }
+        }
+
+        return kürzereSchritte;
+    }
     
+
+    
+    public SchritteDaten getLängsteMeter(LocalDate heute, Integer anzahltage) {
+        List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SchritteDaten längsteSchritte = null;
+        Double schritteRef = 0.;
+
+        for (SchritteDaten tag : woche) {
+            if (tag.getSchritte() > schritteRef) {
+                längsteSchritte = tag;
+                schritteRef = tag.getMeter();
+            }
+        }
+
+        return längsteSchritte;
+    }
+
+    public SchritteDaten getKürzereMeter(LocalDate heute, Integer anzahltage) {
+        List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SchritteDaten kürzereMeter = null;
+        Double schritteRef = 9999999999.9;
+
+        for (SchritteDaten tag : woche) {
+            if (tag.getSchritte() < schritteRef) {
+                kürzereMeter = tag;
+                schritteRef = tag.getMeter();
+            }
+        }
+
+        return kürzereMeter;
+    }
 }

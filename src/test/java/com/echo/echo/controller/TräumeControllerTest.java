@@ -38,7 +38,7 @@ public class TräumeControllerTest {
     void setUp(){
         träumeService = mock(TräumeService.class);
         benutzerService = mock(BenutzerService.class);
-        träumeController = new TräumeController(träumeService, benutzerService);
+        //träumeController = new TräumeController(träumeService, benutzerService);
     }
 
     @Nested

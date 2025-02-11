@@ -51,5 +51,37 @@ public class AnalyseSchlafService {
 
         return durchschnitt ;
     }
+
+    public SchlafDaten getLängsterSchlaf(LocalDate heute, Integer anzahltage) {
+        List<SchlafDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SchlafDaten längsterSchlaf = null;
+        LocalTime time = LocalTime.MIN;
+
+        for (SchlafDaten tag : woche) {
+            if (tag.getSchlafenszeit().isAfter(time)) {
+                längsterSchlaf = tag;
+                time = tag.getSchlafenszeit();
+            }
+        }
+
+        return längsterSchlaf;
+    }
+
+    public SchlafDaten getKürzesterSchlaf(LocalDate heute, Integer anzahltage) {
+        List<SchlafDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SchlafDaten kürzesterSchlaf = null;
+        LocalTime time = LocalTime.MAX;
+
+        for (SchlafDaten tag : woche) {
+            if (tag.getSchlafenszeit().isBefore(time)) {
+                kürzesterSchlaf = tag;
+                time = tag.getSchlafenszeit();
+            }
+        }
+
+        return kürzesterSchlaf;
+    }
     
 }

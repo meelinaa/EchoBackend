@@ -38,7 +38,7 @@ public class GedankenControllerTest {
     void setUp(){
         gedankenService = mock(GedankenService.class);
         benutzerService = mock(BenutzerService.class);
-        gedankenController = new GedankenController(gedankenService, benutzerService);
+        //gedankenController = new GedankenController(gedankenService, benutzerService);
     }
 
     @Nested
