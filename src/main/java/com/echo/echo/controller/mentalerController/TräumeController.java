@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.mentaleDaten.TräumeDaten;
+import com.echo.echo.service.analyse.AnalyseTräumeService;
 import com.echo.echo.service.mentalerService.TräumeService;
 import com.echo.echo.service.persönlicherService.BenutzerService;
 
@@ -22,10 +23,12 @@ public class TräumeController {
     
     private TräumeService träumeService;
     private BenutzerService benutzerService;
+    private AnalyseTräumeService analyseTräumeService;
 
-    public TräumeController(TräumeService träumeService, BenutzerService benutzerService){
+    public TräumeController(TräumeService träumeService, BenutzerService benutzerService, AnalyseTräumeService analyseTräumeService){
         this.träumeService = träumeService;
         this.benutzerService = benutzerService;
+        this.analyseTräumeService = analyseTräumeService;
     }
     private Integer benutzerId = 1;
 
@@ -62,6 +65,19 @@ public class TräumeController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }  
+    }
+
+    @GetMapping("/analyse/durchschnittBewertung/{datum}/{anzahltage}")
+    public ResponseEntity<Integer> getDurchschnittBewertung(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseTräumeService.getDurchschnittBewertung(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
     
 }

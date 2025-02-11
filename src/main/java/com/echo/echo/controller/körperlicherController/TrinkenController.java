@@ -58,11 +58,37 @@ public class TrinkenController {
     @GetMapping("/analyse/{datum}/{anzahltage}")
     public ResponseEntity<List<TrinkenDaten>> getTageAnalyse(@PathVariable String datum, @PathVariable Integer anzahltage) {
         if (datum == null || anzahltage == null) {
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             LocalDate parsedDate = LocalDate.parse(datum);
             return ResponseEntity.ok(analyseTrinkenService.getTageAnalyse(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/analyse/durchschnittLiter/{datum}/{anzahltage}")
+    public ResponseEntity<Double> getDurchschnittLiter(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseTrinkenService.getDurchschnittLiter(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/analyse/durchschnittBecher/{datum}/{anzahltage}")
+    public ResponseEntity<Integer> getDurchschnittBecher(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseTrinkenService.getDurchschnittBecher(parsedDate, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

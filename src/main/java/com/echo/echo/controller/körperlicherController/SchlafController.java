@@ -8,7 +8,7 @@ import com.echo.echo.service.analyse.AnalyseSchlafService;
 import com.echo.echo.service.körperlicherService.SchlafService;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -58,27 +58,27 @@ public class SchlafController {
         }
     }
 
-    @GetMapping("/analyse")
-    public ResponseEntity<List<SchlafDaten>> getTageAnalyse(@RequestBody String datumReactFormat, @RequestBody Integer anzahltage) {
-        if (datumReactFormat == null || anzahltage == null) {
+    @GetMapping("/analyse/{datum}/{anzahltage}")
+    public ResponseEntity<List<SchlafDaten>> getTageAnalyse(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(analyseSchlafService.getTageAnalyse(datum, anzahltage));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSchlafService.getTageAnalyse(parsedDate, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping("/analyse/durchschnitt/zeit")
-    public ResponseEntity<String> getDurchschnittZeit(@RequestBody String datumReactFormat, @RequestBody Integer anzahltage) {
-        if (datumReactFormat == null || anzahltage == null) {
+    @GetMapping("/analyse/durchschnitt/{datum}/{anzahltage}")
+    public ResponseEntity<LocalTime> getDurchschnittZeit(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(analyseSchlafService.getDurchschnittZeit(datum, anzahltage));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSchlafService.getDurchschnittZeit(parsedDate, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

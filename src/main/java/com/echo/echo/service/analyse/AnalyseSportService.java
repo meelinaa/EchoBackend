@@ -1,6 +1,8 @@
 package com.echo.echo.service.analyse;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,20 +25,31 @@ public class AnalyseSportService {
             throw new IllegalArgumentException("Es wurde kein aktuelles Datum weitergegeben.");
         }
         try {
-            List<SportDaten> woche = List.of(new SportDaten());
+            List<SportDaten> woche = new ArrayList<>();
 
-            int i = 0;
-            do { 
+            for (int i = 0; i < anzahltage; i++) {
                 LocalDate datum = heute.minusDays(i);
                 SportDaten tag = sportService.getSport(datum, benutzerId);
                 woche.add(tag);
-                i--; 
-            } while (i < anzahltage); 
+            }
 
             return woche;
         } catch (Exception e) {
             throw new RuntimeException("Es konnten keine Daten abgerufen werden.");
         }
+    }
+
+    public LocalTime getDurchschnittTraining(LocalDate heute, Integer anzahltage) {
+        List<SportDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        int summe = 0;
+        for (SportDaten tag : woche) {
+            summe += tag.getTrainingsDauer().toSecondOfDay();
+        }        
+
+        LocalTime durchschnitt = LocalTime.ofSecondOfDay(summe / anzahltage);
+
+        return durchschnitt;
     }
     
 }

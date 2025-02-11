@@ -1,7 +1,6 @@
 package com.echo.echo.controller.körperlicherController;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.körperlicheDaten.SportDaten;
@@ -9,7 +8,7 @@ import com.echo.echo.service.analyse.AnalyseSportService;
 import com.echo.echo.service.körperlicherService.SportService;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -57,14 +56,27 @@ public class SportController {
         }
     }
 
-    @GetMapping("/analyse")
-    public ResponseEntity<List<SportDaten>> getTageAnalyse(@RequestParam String datumReactFormat, @RequestParam Integer anzahltage) {
-        if (datumReactFormat == null || anzahltage == null) {
+    @GetMapping("/analyse/{datum}/{anzahltage}")
+    public ResponseEntity<List<SportDaten>> getTageAnalyse(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(analyseSportService.getTageAnalyse(datum, anzahltage));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSportService.getTageAnalyse(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/analyse/durchschnittTraining/{datum}/{anzahltage}")
+    public ResponseEntity<LocalTime> getDurchschnittTraining(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSportService.getDurchschnittTraining(parsedDate, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

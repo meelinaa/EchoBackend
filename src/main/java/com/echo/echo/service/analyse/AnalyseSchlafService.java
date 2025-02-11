@@ -2,6 +2,7 @@ package com.echo.echo.service.analyse;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,24 +25,21 @@ public class AnalyseSchlafService {
             throw new IllegalArgumentException("Es wurde kein aktuelles Datum weitergegeben.");
         }
         try {
-            List<SchlafDaten> woche = List.of(new SchlafDaten());
+            List<SchlafDaten> woche = new ArrayList<>();
 
-            int i = 0;
-            do { 
+            for (int i = 0; i < anzahltage; i++) {
                 LocalDate datum = heute.minusDays(i);
                 SchlafDaten tag = schlafService.getSchlaf(datum, benutzerId);
                 woche.add(tag);
-                i--; 
-            } while (i < anzahltage); 
+            }
 
             return woche;
         } catch (Exception e) {
             throw new RuntimeException("Es konnten keine Daten abgerufen werden.");
         }
-        
     }
 
-    public String getDurchschnittZeit(LocalDate heute, Integer anzahltage) {
+    public LocalTime getDurchschnittZeit(LocalDate heute, Integer anzahltage) {
         List<SchlafDaten> woche = getTageAnalyse(heute, anzahltage);
 
         int summe = 0;
@@ -51,7 +49,7 @@ public class AnalyseSchlafService {
 
         LocalTime durchschnitt = LocalTime.ofSecondOfDay(summe / anzahltage);
 
-        return "Du hast in den letzen " + anzahltage + " Tagen im Durchschnitt " + durchschnitt + "h geschlafen.";
+        return durchschnitt ;
     }
     
 }

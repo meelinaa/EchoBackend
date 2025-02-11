@@ -1,6 +1,7 @@
 package com.echo.echo.service.analyse;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,20 +24,40 @@ public class AnalyseSchritteService {
             throw new IllegalArgumentException("Es wurde kein aktuelles Datum weitergegeben.");
         }
         try {
-            List<SchritteDaten> woche = List.of(new SchritteDaten());
+            List<SchritteDaten> woche = new ArrayList<>();
 
-            int i = 0;
-            do { 
+            for (int i = 0; i < anzahltage; i++) {
                 LocalDate datum = heute.minusDays(i);
                 SchritteDaten tag = schritteService.getSchritte(datum, benutzerId);
                 woche.add(tag);
-                i--; 
-            } while (i < anzahltage); 
+            }
 
             return woche;
         } catch (Exception e) {
             throw new RuntimeException("Es konnten keine Daten abgerufen werden.");
         }
+    }
+
+    public Integer getDurchschnittSchritte(LocalDate heute, Integer anzahltage) {
+        List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        int summe = 0;
+        for (SchritteDaten tag : woche) {
+            summe += tag.getSchritte();
+        }
+
+        return summe;
+    }
+
+    public Double getDurchschnittMeter(LocalDate heute, Integer anzahltage) {
+        List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        Double summe = 0.;
+        for (SchritteDaten tag : woche) {
+            summe += tag.getMeter();
+        }
+
+        return summe;
     }
     
 }

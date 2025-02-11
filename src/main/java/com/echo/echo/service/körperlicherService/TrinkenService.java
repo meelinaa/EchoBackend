@@ -23,55 +23,36 @@ public class TrinkenService {
     }
 
     public TrinkenDaten getTrinken(LocalDate datum, Integer benutzerId) {
-        if (datum == null) {
-            throw new IllegalArgumentException("Datum darf nicht null sein");
-        }
-        if (benutzerId == null) {
-            throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
-        }
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
             .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
-        try {
-            TrinkenDaten daten = trinkenRepository.getByDatumUndBenutzer(datum, benutzerId);
-            if (daten == null) {
-                TrinkenDaten neueDaten = new TrinkenDaten();
-                neueDaten.setBenutzer(benutzer);
-                neueDaten.setBecher(0);
-                neueDaten.setDatum(datum);
-                neueDaten.setLiter(0.);
-                return neueDaten;
-            }
-            return daten;
-        } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
+        
+        TrinkenDaten daten = trinkenRepository.getByDatumUndBenutzer(datum, benutzerId);
+        if (daten == null) {
+            TrinkenDaten neueDaten = new TrinkenDaten();
+            neueDaten.setBenutzer(benutzer);
+            neueDaten.setBecher(0);
+            neueDaten.setDatum(datum);
+            neueDaten.setLiter(0.);
+            return neueDaten;
         }
+        return daten;
+        
     }
 
-    public void putTrinken(TrinkenDaten daten, Integer benutzerId) {
-        if (daten == null) {
-            throw new IllegalArgumentException("Daten dürfen nicht null sein");
-        }
-        if (benutzerId == null) {
-            throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
-        }
-
+    public void putTrinken(TrinkenDaten daten, Integer benutzerId) {    
         Benutzer benutzer = benutzerRepository.findById(benutzerId)
                 .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
                 
-        try {
-            TrinkenDaten vorhandeneDaten = trinkenRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
-
-            if (vorhandeneDaten != null) {
-                vorhandeneDaten.setLiter(daten.getLiter());
-                vorhandeneDaten.setDatum(daten.getDatum());
-                vorhandeneDaten.setBecher(daten.getBecher());
-                trinkenRepository.save(vorhandeneDaten);
-            } else {
-                daten.setBenutzer(benutzer);
-                trinkenRepository.save(daten);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
+        TrinkenDaten vorhandeneDaten = trinkenRepository.getByDatumUndBenutzer(daten.getDatum(), benutzerId);
+        
+        if (vorhandeneDaten != null) {
+            vorhandeneDaten.setLiter(daten.getLiter());
+            vorhandeneDaten.setDatum(daten.getDatum());
+            vorhandeneDaten.setBecher(daten.getBecher());
+            trinkenRepository.save(vorhandeneDaten);
+        } else {
+            daten.setBenutzer(benutzer);
+            trinkenRepository.save(daten);
         }
     }
     

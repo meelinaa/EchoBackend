@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echo.echo.model.mentaleDaten.GedankenDaten;
+import com.echo.echo.service.analyse.AnalyseGedankenService;
 import com.echo.echo.service.mentalerService.GedankenService;
 import com.echo.echo.service.persönlicherService.BenutzerService;
 
@@ -24,11 +25,13 @@ public class GedankenController {
 
     private GedankenService gedankenService;
     private BenutzerService benutzerService;
+    private AnalyseGedankenService analyseGedankenService;
     private Integer benutzerId = 1;
 
-    public GedankenController(GedankenService gedankenService, BenutzerService benutzerService){
+    public GedankenController(GedankenService gedankenService, BenutzerService benutzerService, AnalyseGedankenService analyseGedankenService){
         this.gedankenService = gedankenService;
         this.benutzerService = benutzerService;
+        this.analyseGedankenService = analyseGedankenService;
     }
 
     @GetMapping("/{datum}")
@@ -64,6 +67,19 @@ public class GedankenController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }  
+    }
+
+    @GetMapping("/analyse/anzahlGedanken/{datum}/{anzahltage}")
+    public ResponseEntity<Integer> getAnzahlGedanken(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseGedankenService.getAnzahlGedanken(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
     
 }

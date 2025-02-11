@@ -8,7 +8,6 @@ import com.echo.echo.service.analyse.AnalyseSchritteService;
 import com.echo.echo.service.körperlicherService.SchritteService;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -57,14 +56,40 @@ public class SchritteController {
         }
     }
 
-    @GetMapping("/analyse")
-    public ResponseEntity<List<SchritteDaten>> getTageAnalyse(@RequestBody String datumReactFormat , @RequestBody Integer anzahltage) {
-        if (datumReactFormat == null || anzahltage == null) {
+    @GetMapping("/analyse/{datum}/{anzahltage}")
+    public ResponseEntity<List<SchritteDaten>> getTageAnalyse(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
             return ResponseEntity.badRequest().build();
         }
         try {
-            LocalDate datum = LocalDate.parse(datumReactFormat, DateTimeFormatter.ofPattern("d.M.yyyy"));
-            return ResponseEntity.ok(analyseSchritteService.getTageAnalyse(datum, anzahltage));
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSchritteService.getTageAnalyse(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/analyse/durchschnittSchritte/{datum}/{anzahltage}")
+    public ResponseEntity<Integer> getDurchschnittSchritte(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSchritteService.getDurchschnittSchritte(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/analyse/durchschnittMeter/{datum}/{anzahltage}")
+    public ResponseEntity<Double> getDurchschnittMeter(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseSchritteService.getDurchschnittMeter(parsedDate, anzahltage));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
