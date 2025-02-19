@@ -48,15 +48,15 @@ public class GedankenController {
     }
 
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> putGedanken(@RequestBody GedankenDaten daten) {
+    public ResponseEntity<String> putGedanken(@RequestBody GedankenDaten daten) {
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             gedankenService.putGedanken(daten, benutzerId);        
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Daten wurden gespeichert");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Daten konnten nicht gespeichert werden:" +  e.getMessage());
         }
     }
 

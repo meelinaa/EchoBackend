@@ -52,4 +52,35 @@ public class AnalyseSportService {
         return durchschnitt;
     }
     
+    public SportDaten getKürzesteTrainingsdauer(LocalDate heute, Integer anzahltage) {
+        List<SportDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SportDaten kürzereTrainingsdauer = null;
+        LocalTime trainingsDauerRef = LocalTime.MAX;
+
+        for (SportDaten tag : woche) {
+            if (tag.getTrainingsDauer().isBefore(trainingsDauerRef)) {
+                kürzereTrainingsdauer = tag;
+                trainingsDauerRef = tag.getTrainingsDauer();
+            }
+        }
+
+        return kürzereTrainingsdauer;
+    }
+
+    public SportDaten getLängsteTrainingsdauer(LocalDate heute, Integer anzahltage) {
+        List<SportDaten> woche = getTageAnalyse(heute, anzahltage);
+
+        SportDaten längsteTrainingsdauer = null;
+        LocalTime trainingsDauerRef = LocalTime.MIN;
+
+        for (SportDaten tag : woche) {
+            if (tag.getTrainingsDauer().isAfter(trainingsDauerRef)) {
+                längsteTrainingsdauer = tag;
+                trainingsDauerRef = tag.getTrainingsDauer();
+            }
+        }
+
+        return längsteTrainingsdauer;
+    }
 }

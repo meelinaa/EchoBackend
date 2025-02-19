@@ -46,15 +46,15 @@ public class SchlafController {
     }
 
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> putSchlaf(@RequestBody SchlafDaten daten) {
+    public ResponseEntity<String> putSchlaf(@RequestBody SchlafDaten daten) {
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             schlafService.putSchlaf(daten, benutzerId);        
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Daten wurden gespeichert");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Daten konnten nicht gespeichert werden:" +  e.getMessage());
         }
     }
 

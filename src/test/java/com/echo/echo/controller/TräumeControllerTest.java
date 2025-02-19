@@ -28,7 +28,7 @@ public class TräumeControllerTest {
 
     private TräumeController träumeController;
     private TräumeService träumeService;
-    private BenutzerService benutzerService;
+    //private BenutzerService benutzerService;
 
     private Integer benutzerId = 1;
     private LocalDate datum = LocalDate.parse("2025-02-01");
@@ -37,7 +37,7 @@ public class TräumeControllerTest {
     @BeforeEach
     void setUp(){
         träumeService = mock(TräumeService.class);
-        benutzerService = mock(BenutzerService.class);
+        //benutzerService = mock(BenutzerService.class);
         //träumeController = new TräumeController(träumeService, benutzerService);
     }
 

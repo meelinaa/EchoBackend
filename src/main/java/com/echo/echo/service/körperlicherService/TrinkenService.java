@@ -23,20 +23,28 @@ public class TrinkenService {
     }
 
     public TrinkenDaten getTrinken(LocalDate datum, Integer benutzerId) {
-        Benutzer benutzer = benutzerRepository.findById(benutzerId)
-            .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
-        
-        TrinkenDaten daten = trinkenRepository.getByDatumUndBenutzer(datum, benutzerId);
-        if (daten == null) {
-            TrinkenDaten neueDaten = new TrinkenDaten();
-            neueDaten.setBenutzer(benutzer);
-            neueDaten.setBecher(0);
-            neueDaten.setDatum(datum);
-            neueDaten.setLiter(0.);
-            return neueDaten;
+        if (datum == null) {
+            throw new IllegalArgumentException("Datum darf nicht null sein");
         }
-        return daten;
-        
+        if (benutzerId == null) {
+            throw new IllegalArgumentException("Benutzer ID darf nicht null sein");
+        }
+        Benutzer benutzer = benutzerRepository.findById(benutzerId)
+                .orElseThrow(() -> new EntityNotFoundException("Benutzer mit ID " + benutzerId + " nicht gefunden"));
+        try {
+            TrinkenDaten daten = trinkenRepository.getByDatumUndBenutzer(datum, benutzerId);
+            if (daten == null) {
+                TrinkenDaten neueDaten = new TrinkenDaten();
+                neueDaten.setBenutzer(benutzer);
+                neueDaten.setBecher(0);
+                neueDaten.setDatum(datum);
+                neueDaten.setLiter(0.);
+                return neueDaten;
+            }
+            return daten;
+        } catch (Exception e) {
+            throw new RuntimeException("Ein unerwarteter Fehler ist aufgetreten");
+        }    
     }
 
     public void putTrinken(TrinkenDaten daten, Integer benutzerId) {    

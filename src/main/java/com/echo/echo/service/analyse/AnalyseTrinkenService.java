@@ -60,8 +60,7 @@ public class AnalyseTrinkenService {
             summe += tag.getBecher();
         }
 
-        Integer durchschnitt = summe / anzahltage;
-
+        Integer durchschnitt = (summe / anzahltage);
         return durchschnitt;
     }
 

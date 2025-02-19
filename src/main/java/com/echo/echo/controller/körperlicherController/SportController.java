@@ -44,15 +44,15 @@ public class SportController {
     }
     
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> putSport(@RequestBody SportDaten daten) {
+    public ResponseEntity<String> putSport(@RequestBody SportDaten daten) {
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             sportService.putSport(daten, benutzerId);        
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Daten wurden gespeichert");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Daten konnten nicht gespeichert werden:" +  e.getMessage());
         }
     }
 
@@ -69,6 +69,7 @@ public class SportController {
         }
     }
 
+    // Anzahl Tage maximal 8 - Alles darüber löst 400 aus
     @GetMapping("/analyse/durchschnittTraining/{datum}/{anzahltage}")
     public ResponseEntity<LocalTime> getDurchschnittTraining(@PathVariable String datum, @PathVariable Integer anzahltage) {
         if (datum == null || anzahltage == null) {

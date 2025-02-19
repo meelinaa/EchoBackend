@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+// ---- WIRD ERSTMAL NICHT BEARBEITET ---
+
 @RestController
 @RequestMapping("/gemüt")
 public class GemütController {

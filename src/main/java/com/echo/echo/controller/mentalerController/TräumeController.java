@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 @RestController
 @RequestMapping("/träume")
 public class TräumeController {
@@ -46,15 +47,15 @@ public class TräumeController {
     }
 
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> putTraum(@RequestBody TräumeDaten daten) {
+    public ResponseEntity<String> putTraum(@RequestBody TräumeDaten daten) {
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             träumeService.putTraum(daten, benutzerId);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Daten wurden gespeichert");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Daten konnten nicht gespeichert werden:" +  e.getMessage());
         }
     }
 

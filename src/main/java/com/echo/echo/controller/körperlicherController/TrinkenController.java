@@ -43,15 +43,15 @@ public class TrinkenController {
     }
     
     @PutMapping("/hinzufügen")
-    public ResponseEntity<Void> putTrinken(@RequestBody TrinkenDaten daten) {
+    public ResponseEntity<String> putTrinken(@RequestBody TrinkenDaten daten) {
         if (daten == null) {
             throw new IllegalArgumentException("Daten dürfen nicht null sein");
         }
         try {
             trinkenService.putTrinken(daten, benutzerId);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Daten wurden gespeichert");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Daten konnten nicht gespeichert werden:" +  e.getMessage());
         }
     }
 
@@ -81,6 +81,7 @@ public class TrinkenController {
         }
     }
 
+    // Anzahl Tage maximal 26 - Alles darüber löst 400 aus
     @GetMapping("/analyse/durchschnittBecher/{datum}/{anzahltage}")
     public ResponseEntity<Integer> getDurchschnittBecher(@PathVariable String datum, @PathVariable Integer anzahltage) {
         if (datum == null || anzahltage == null) {
