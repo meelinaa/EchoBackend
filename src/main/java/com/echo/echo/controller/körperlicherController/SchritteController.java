@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/schritte")
 public class SchritteController {
@@ -69,6 +68,7 @@ public class SchritteController {
         }
     }
 
+    //Durchschnitt
     @GetMapping("/analyse/durchschnittSchritte/{datum}/{anzahltage}")
     public ResponseEntity<Integer> getDurchschnittSchritte(@PathVariable String datum, @PathVariable Integer anzahltage) {
         if (datum == null || anzahltage == null) {
@@ -94,6 +94,5 @@ public class SchritteController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
 
 }

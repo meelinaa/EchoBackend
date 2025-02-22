@@ -68,6 +68,19 @@ public class TräumeController {
         }  
     }
 
+    @GetMapping("/analyse/{datum}/{anzahltage}")
+    public ResponseEntity<List<TräumeDaten>> getTageAnalyse(@PathVariable String datum, @PathVariable Integer anzahltage) {
+        if (datum == null || anzahltage == null) {
+            throw new IllegalArgumentException("Daten dürfen nicht null sein");
+        }
+        try {
+            LocalDate parsedDate = LocalDate.parse(datum);
+            return ResponseEntity.ok(analyseTräumeService.getTageAnalyse(parsedDate, anzahltage));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping("/analyse/durchschnittBewertung/{datum}/{anzahltage}")
     public ResponseEntity<Integer> getDurchschnittBewertung(@PathVariable String datum, @PathVariable Integer anzahltage) {
         if (datum == null || anzahltage == null) {

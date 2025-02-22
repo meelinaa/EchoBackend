@@ -81,7 +81,7 @@ public class TrinkenController {
         }
     }
 
-    // Anzahl Tage maximal 26 - Alles darüber löst 400 aus
+    // Anzahl Tage maximal 26 - Alles darüber löst 400 aus - Grund: unbekannt
     @GetMapping("/analyse/durchschnittBecher/{datum}/{anzahltage}")
     public ResponseEntity<Integer> getDurchschnittBecher(@PathVariable String datum, @PathVariable Integer anzahltage) {
         if (datum == null || anzahltage == null) {

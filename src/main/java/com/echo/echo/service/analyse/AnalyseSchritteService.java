@@ -46,7 +46,8 @@ public class AnalyseSchritteService {
             summe += tag.getSchritte();
         }
 
-        return summe;
+        Integer durchschnitt = summe / anzahltage;
+        return durchschnitt;
     }
 
     public Double getDurchschnittMeter(LocalDate heute, Integer anzahltage) {
@@ -57,7 +58,9 @@ public class AnalyseSchritteService {
             summe += tag.getMeter();
         }
 
-        return summe;
+        Double durchschnitt = (double) summe / anzahltage;
+
+        return durchschnitt;
     }
 
     public SchritteDaten getLängsteSchritte(LocalDate heute, Integer anzahltage) {
@@ -91,8 +94,6 @@ public class AnalyseSchritteService {
 
         return kürzereSchritte;
     }
-    
-
     
     public SchritteDaten getLängsteMeter(LocalDate heute, Integer anzahltage) {
         List<SchritteDaten> woche = getTageAnalyse(heute, anzahltage);
